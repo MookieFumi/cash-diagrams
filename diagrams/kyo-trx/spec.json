@@ -1,0 +1,459 @@
+{
+ "slug": "kyo-trx",
+ "title": "kyo-trx",
+ "subtitle": "Ingesta de transacciones XML y consulta desde la web",
+ "description": "cash-device envía transacciones XML por POST a trx-api, que las guarda en SQL Server. La web Vue consulta trx-api, shared-api y toolings-api, con autenticación. trx-api incluye caché en memoria y dos background services.",
+ "tags": [
+  "microservicios",
+  "SQL Server",
+  "Vue.js",
+  "XML"
+ ],
+ "width": 1200,
+ "height": 880,
+ "hold": 3,
+ "nodes": [
+  {
+   "id": "trx-api",
+   "kind": "group",
+   "label": "trx-api",
+   "sub": "Microservicio",
+   "x": 450,
+   "y": 435,
+   "w": 380,
+   "h": 530,
+   "caption": {
+    "text": "BACKGROUND SERVICES",
+    "x": 280,
+    "y": 525
+   }
+  },
+  {
+   "id": "cash-device",
+   "kind": "service",
+   "label": "cash-device",
+   "sub": "Sistema emisor",
+   "icon": "device",
+   "loader": "spinner",
+   "x": 115,
+   "y": 285,
+   "w": 170,
+   "h": 110
+  },
+  {
+   "id": "trx-post",
+   "kind": "service",
+   "label": "POST /transactions",
+   "sub": "Ingesta de transacciones XML",
+   "icon": "server",
+   "loader": "bar",
+   "x": 450,
+   "y": 285,
+   "w": 300,
+   "h": 100
+  },
+  {
+   "id": "trx-get",
+   "kind": "static",
+   "label": "API REST",
+   "sub": "Resto de endpoints (consulta)",
+   "icon": "server",
+   "x": 450,
+   "y": 385,
+   "w": 300,
+   "h": 62
+  },
+  {
+   "id": "cache",
+   "kind": "static",
+   "label": "Caché en memoria",
+   "sub": "Datos cacheados de trx-api",
+   "icon": "memory",
+   "x": 450,
+   "y": 460,
+   "w": 300,
+   "h": 62
+  },
+  {
+   "id": "balance-calculator",
+   "kind": "static",
+   "label": "balance-calculator",
+   "sub": "Background service",
+   "icon": "gear",
+   "x": 450,
+   "y": 570,
+   "w": 300,
+   "h": 62
+  },
+  {
+   "id": "fill-rate-calculator",
+   "kind": "static",
+   "label": "fill-rate-calculator",
+   "sub": "Background service",
+   "icon": "gear",
+   "x": 450,
+   "y": 645,
+   "w": 300,
+   "h": 62
+  },
+  {
+   "id": "web",
+   "kind": "static",
+   "label": "Web Vue.js",
+   "sub": "Consulta, preferencias, export.",
+   "icon": "web",
+   "x": 700,
+   "y": 80,
+   "w": 300,
+   "h": 90
+  },
+  {
+   "id": "idp",
+   "kind": "static",
+   "label": "Autenticación",
+   "sub": "Login y token",
+   "icon": "shield",
+   "x": 1040,
+   "y": 80,
+   "w": 200,
+   "h": 90
+  },
+  {
+   "id": "shared-api",
+   "kind": "static",
+   "label": "shared-api",
+   "sub": "Preferencias y dispositivos",
+   "icon": "server",
+   "x": 760,
+   "y": 385,
+   "w": 220,
+   "h": 90
+  },
+  {
+   "id": "toolings-api",
+   "kind": "static",
+   "label": "toolings-api",
+   "sub": "Exportación de datos",
+   "icon": "server",
+   "x": 1000,
+   "y": 385,
+   "w": 220,
+   "h": 90
+  },
+  {
+   "id": "sqlserver",
+   "kind": "service",
+   "label": "SQL Server",
+   "sub": "BBDD compartida por trx-api, shared-api y toolings-api",
+   "icon": "db",
+   "loader": "discs",
+   "x": 680,
+   "y": 810,
+   "w": 840,
+   "h": 80
+  }
+ ],
+ "edges": {
+  "xml": {
+   "points": [
+    [
+     200,
+     285
+    ],
+    [
+     300,
+     285
+    ]
+   ],
+   "label": {
+    "text": "POST XML",
+    "x": 244,
+    "y": 266,
+    "anchor": "middle"
+   }
+  },
+  "insert": {
+   "points": [
+    [
+     600,
+     285
+    ],
+    [
+     620,
+     285
+    ],
+    [
+     620,
+     770
+    ]
+   ],
+   "label": {
+    "text": "INSERT",
+    "x": 648,
+    "y": 560,
+    "anchor": "start"
+   }
+  },
+  "cacheDb": {
+   "points": [
+    [
+     300,
+     460
+    ],
+    [
+     272,
+     460
+    ],
+    [
+     272,
+     770
+    ]
+   ]
+  },
+  "balanceDb": {
+   "points": [
+    [
+     300,
+     570
+    ],
+    [
+     288,
+     570
+    ],
+    [
+     288,
+     770
+    ]
+   ]
+  },
+  "fillDb": {
+   "points": [
+    [
+     450,
+     676
+    ],
+    [
+     450,
+     770
+    ]
+   ]
+  },
+  "webTrx": {
+   "bezier": [
+    [
+     600,
+     125
+    ],
+    [
+     600,
+     155
+    ],
+    [
+     450,
+     145
+    ],
+    [
+     450,
+     170
+    ]
+   ],
+   "label": {
+    "text": "GET /transactions",
+    "x": 440,
+    "y": 148,
+    "anchor": "end"
+   }
+  },
+  "webShared": {
+   "bezier": [
+    [
+     720,
+     125
+    ],
+    [
+     720,
+     230
+    ],
+    [
+     760,
+     240
+    ],
+    [
+     760,
+     340
+    ]
+   ],
+   "label": {
+    "text": "preferencias",
+    "x": 745,
+    "y": 262,
+    "anchor": "end"
+   }
+  },
+  "webTools": {
+   "bezier": [
+    [
+     800,
+     125
+    ],
+    [
+     800,
+     240
+    ],
+    [
+     1000,
+     230
+    ],
+    [
+     1000,
+     340
+    ]
+   ],
+   "label": {
+    "text": "exportación",
+    "x": 1012,
+    "y": 250,
+    "anchor": "start"
+   }
+  },
+  "login": {
+   "points": [
+    [
+     850,
+     80
+    ],
+    [
+     940,
+     80
+    ]
+   ],
+   "label": {
+    "text": "login",
+    "x": 895,
+    "y": 64,
+    "anchor": "middle"
+   }
+  },
+  "sharedDb": {
+   "points": [
+    [
+     760,
+     430
+    ],
+    [
+     760,
+     770
+    ]
+   ],
+   "label": {
+    "text": "SQL",
+    "x": 770,
+    "y": 620,
+    "anchor": "start"
+   }
+  },
+  "toolsDb": {
+   "points": [
+    [
+     1000,
+     430
+    ],
+    [
+     1000,
+     770
+    ]
+   ],
+   "label": {
+    "text": "SQL",
+    "x": 1010,
+    "y": 620,
+    "anchor": "start"
+   }
+  }
+ },
+ "script": [
+  {
+   "set": [
+    "cash-device",
+    "loading",
+    "Enviando XML"
+   ]
+  },
+  {
+   "wait": 0.4
+  },
+  {
+   "fire": {
+    "edge": "xml",
+    "kind": "request",
+    "count": 3,
+    "dur": 1.0
+   }
+  },
+  {
+   "set": [
+    "trx-post",
+    "loading",
+    "Validando XML"
+   ]
+  },
+  {
+   "wait": 0.6
+  },
+  {
+   "set": [
+    "trx-post",
+    "loading",
+    "Parseando transacciones"
+   ]
+  },
+  {
+   "set": [
+    "sqlserver",
+    "loading",
+    "Insertando transacción"
+   ]
+  },
+  {
+   "fire": {
+    "edge": "insert",
+    "kind": "request",
+    "count": 3,
+    "dur": 0.9
+   }
+  },
+  {
+   "wait": 0.3
+  },
+  {
+   "set": [
+    "sqlserver",
+    "done",
+    "Transacción guardada"
+   ]
+  },
+  {
+   "set": [
+    "trx-post",
+    "done",
+    "Transacción aceptada"
+   ]
+  },
+  {
+   "fire": {
+    "edge": "xml",
+    "reverse": true,
+    "kind": "response",
+    "count": 2,
+    "dur": 0.9
+   }
+  },
+  {
+   "set": [
+    "cash-device",
+    "done",
+    "XML aceptado"
+   ]
+  }
+ ]
+}
