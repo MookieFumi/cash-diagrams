@@ -2,14 +2,14 @@
  "slug": "kyo-trx",
  "title": "kyo-trx",
  "subtitle": "Ingesta de transacciones XML y consulta desde la web",
- "description": "cash-device envía transacciones XML por POST a trx-api, que las guarda en SQL Server. La web Vue consulta trx-api, shared-api y toolings-api, con autenticación; devices-updater, un sistema externo, actualiza dispositivos vía shared-api. trx-api incluye caché en memoria y dos background services.",
+ "description": "cash-device envía transacciones XML por POST a trx-api, que las guarda en SQL Server. La web Vue consulta trx-api, shared-api y toolings-api, con autenticación; devices-updater, un sistema externo, actualiza dispositivos vía shared-api. Las tres APIs incluyen caché en memoria y background services (toolings-api: file-generator).",
  "tags": [
   "microservicios",
   "SQL Server",
   "Vue.js",
   "XML"
  ],
- "width": 1470,
+ "width": 1600,
  "height": 820,
  "hold": 2.5,
  "nodes": [
@@ -69,7 +69,7 @@
    "kind": "static",
    "label": "balance-calculator",
    "sub": "Background service",
-   "icon": "gear",
+   "icon": "repeat",
    "x": 495,
    "y": 490,
    "w": 488,
@@ -80,10 +80,100 @@
    "kind": "static",
    "label": "fill-rate-calculator",
    "sub": "Background service",
-   "icon": "gear",
+   "icon": "repeat",
    "x": 495,
    "y": 565,
    "w": 488,
+   "h": 62
+  },
+  {
+   "id": "toolings-api",
+   "kind": "group",
+   "label": "toolings-api",
+   "sub": "Microservicio",
+   "icon": "server",
+   "x": 908,
+   "y": 347.5,
+   "w": 256,
+   "h": 355,
+   "caption": {
+    "text": "BACKGROUND SERVICES",
+    "x": 796,
+    "y": 420
+   }
+  },
+  {
+   "id": "toolings-endpoint",
+   "kind": "service",
+   "label": "API REST",
+   "sub": [
+    "Exportación",
+    "de datos"
+   ],
+   "icon": "server",
+   "loader": "discs",
+   "x": 908,
+   "y": 275,
+   "w": 224,
+   "h": 80
+  },
+  {
+   "id": "toolings-cache",
+   "kind": "static",
+   "label": "Caché en memoria",
+   "sub": "Datos en memoria",
+   "icon": "memory",
+   "x": 908,
+   "y": 360,
+   "w": 224,
+   "h": 62
+  },
+  {
+   "id": "file-generator",
+   "kind": "static",
+   "label": "file-generator",
+   "sub": "Background service",
+   "icon": "repeat",
+   "x": 908,
+   "y": 470,
+   "w": 224,
+   "h": 62
+  },
+  {
+   "id": "shared-api",
+   "kind": "group",
+   "label": "shared-api",
+   "sub": "Microservicio",
+   "icon": "server",
+   "x": 1189,
+   "y": 292.5,
+   "w": 256,
+   "h": 245
+  },
+  {
+   "id": "shared-endpoint",
+   "kind": "service",
+   "label": "API REST",
+   "sub": [
+    "Preferencias y",
+    "dispositivos"
+   ],
+   "icon": "server",
+   "loader": "dots",
+   "x": 1189,
+   "y": 275,
+   "w": 224,
+   "h": 80
+  },
+  {
+   "id": "shared-cache",
+   "kind": "static",
+   "label": "Caché en memoria",
+   "sub": "Datos en memoria",
+   "icon": "memory",
+   "x": 1189,
+   "y": 360,
+   "w": 224,
    "h": 62
   },
   {
@@ -92,9 +182,9 @@
    "label": "Web Vue.js",
    "sub": "Consulta, preferencias, export.",
    "icon": "web",
-   "x": 640,
+   "x": 660,
    "y": 80,
-   "w": 300,
+   "w": 340,
    "h": 90,
    "loader": "bar"
   },
@@ -111,36 +201,6 @@
    "loader": "spinner"
   },
   {
-   "id": "toolings-api",
-   "kind": "service",
-   "label": "toolings-api",
-   "sub": [
-    "Exportación",
-    "de datos"
-   ],
-   "icon": "server",
-   "x": 870,
-   "y": 385,
-   "w": 190,
-   "h": 90,
-   "loader": "discs"
-  },
-  {
-   "id": "shared-api",
-   "kind": "service",
-   "label": "shared-api",
-   "sub": [
-    "Preferencias y",
-    "dispositivos"
-   ],
-   "icon": "server",
-   "x": 1075,
-   "y": 385,
-   "w": 200,
-   "h": 90,
-   "loader": "dots"
-  },
-  {
    "id": "devices-updater",
    "kind": "service",
    "label": "devices-updater",
@@ -148,9 +208,9 @@
     "Sistema externo"
    ],
    "icon": "device",
-   "x": 1335,
-   "y": 385,
-   "w": 230,
+   "x": 1459.5,
+   "y": 275,
+   "w": 215,
    "h": 90,
    "loader": "spinner"
   },
@@ -161,9 +221,9 @@
    "sub": "BBDD compartida por trx-api, shared-api y toolings-api",
    "icon": "db",
    "loader": "discs",
-   "x": 705,
+   "x": 776,
    "y": 740,
-   "w": 940,
+   "w": 1082,
    "h": 80
   }
  ],
@@ -195,47 +255,47 @@
   "webTools": {
    "bezier": [
     [
-     772,
+     790,
      125
     ],
     [
-     772,
-     265
+     790,
+     150
     ],
     [
-     870,
-     240
+     908,
+     140
     ],
     [
-     870,
-     340
+     908,
+     170
     ]
    ]
   },
   "webShared": {
    "bezier": [
     [
-     786,
+     810,
      125
     ],
     [
-     786,
-     215
+     810,
+     145
     ],
     [
-     1075,
-     215
+     1189,
+     130
     ],
     [
-     1075,
-     340
+     1189,
+     170
     ]
    ]
   },
   "login": {
    "points": [
     [
-     790,
+     830,
      80
     ],
     [
@@ -247,23 +307,23 @@
   "updater": {
    "points": [
     [
-     1220,
-     385
+     1352,
+     275
     ],
     [
-     1175,
-     385
+     1317,
+     275
     ]
    ]
   },
   "toolsDb": {
    "points": [
     [
-     870,
-     430
+     908,
+     525
     ],
     [
-     870,
+     908,
      700
     ]
    ]
@@ -271,11 +331,11 @@
   "sharedDb": {
    "points": [
     [
-     1075,
-     430
+     1189,
+     415
     ],
     [
-     1075,
+     1189,
      700
     ]
    ]
@@ -590,7 +650,7 @@
   },
   {
    "set": [
-    "shared-api",
+    "shared-endpoint",
     "loading",
     "Consultando"
    ]
@@ -640,7 +700,7 @@
   },
   {
    "set": [
-    "shared-api",
+    "shared-endpoint",
     "done",
     "Respuesta lista"
    ]
@@ -664,7 +724,7 @@
   },
   {
    "set": [
-    "shared-api",
+    "shared-endpoint",
     "idle",
     ""
    ]
@@ -696,7 +756,7 @@
   },
   {
    "set": [
-    "shared-api",
+    "shared-endpoint",
     "loading",
     "Actualizando"
    ]
@@ -746,7 +806,7 @@
   },
   {
    "set": [
-    "shared-api",
+    "shared-endpoint",
     "done",
     "Datos al día"
    ]
@@ -770,7 +830,7 @@
   },
   {
    "set": [
-    "shared-api",
+    "shared-endpoint",
     "idle",
     ""
    ]
@@ -802,7 +862,7 @@
   },
   {
    "set": [
-    "toolings-api",
+    "toolings-endpoint",
     "loading",
     "Generando"
    ]
@@ -855,7 +915,7 @@
   },
   {
    "set": [
-    "toolings-api",
+    "toolings-endpoint",
     "done",
     "Export listo"
    ]
