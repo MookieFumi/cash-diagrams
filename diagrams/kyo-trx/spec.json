@@ -56,7 +56,7 @@
   {
    "id": "cache",
    "kind": "static",
-   "label": "Caché en memoria",
+   "label": "Caché",
    "sub": "Compartida por la ingesta y la consulta de trxs",
    "icon": "memory",
    "x": 495,
@@ -120,7 +120,7 @@
   {
    "id": "toolings-cache",
    "kind": "static",
-   "label": "Caché en memoria",
+   "label": "Caché",
    "sub": "Datos en memoria",
    "icon": "memory",
    "x": 908,
@@ -168,7 +168,7 @@
   {
    "id": "shared-cache",
    "kind": "static",
-   "label": "Caché en memoria",
+   "label": "Caché",
    "sub": "Datos en memoria",
    "icon": "memory",
    "x": 1189,
