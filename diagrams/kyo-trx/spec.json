@@ -217,13 +217,7 @@
      870,
      340
     ]
-   ],
-   "label": {
-    "text": "exportación",
-    "x": 880,
-    "y": 258,
-    "anchor": "start"
-   }
+   ]
   },
   "webShared": {
    "bezier": [
@@ -243,13 +237,7 @@
      1075,
      340
     ]
-   ],
-   "label": {
-    "text": "preferencias",
-    "x": 990,
-    "y": 215,
-    "anchor": "end"
-   }
+   ]
   },
   "login": {
    "points": [
@@ -406,8 +394,8 @@
   {
    "set": [
     "trx-endpoint",
-    "done",
-    "Transacción aceptada"
+    "idle",
+    ""
    ]
   },
   {
