@@ -182,10 +182,11 @@ export function buildSvg(spec) {
 
     // glyph slot + text position
     const pillY = n.h - 14 - 34;
-    const g = compact ? { cx: n.w - 26, cy: n.h / 2, tx: 56, ty: n.h / 2 + 15, size: 11 } : { cx: 38, cy: pillY + 17, tx: 62, ty: pillY + 20.5, size: 11 };
+    const arr = Array.isArray(n.sub);
+    const g = compact ? { cx: n.w - 26, cy: n.h / 2, tx: 56, ty: arr ? n.h / 2 + 7 : n.h / 2 + 15, size: 11 } : { cx: 38, cy: pillY + 17, tx: 62, ty: pillY + 20.5, size: 11 };
     const layers = ["idle", "loading", "done"].map((st) => {
       const w = stateWins(st);
-      if (!w.length) return "";
+      if (!w.length || (st === "idle" && compact)) return "";
       win(`${id}-L-${st}`, w, "opacity:1", "opacity:0");
       let glyph;
       if (st === "idle") glyph = `<circle r="5" fill="none" stroke="var(--${P}-line)" stroke-width="1.5"/>`;
@@ -200,7 +201,7 @@ export function buildSvg(spec) {
     }).join("");
     const phases = new Map();
     seq.forEach((e) => {
-      const text = e.state === "idle" ? (compact ? n.sub : "") : e.text;
+      const text = e.state === "idle" ? (compact ? (arr ? n.sub.join("\n") : n.sub) : "") : e.text;
       const k = `${e.state}|${text}`;
       (phases.get(k) ?? phases.set(k, { state: e.state, text, w: [] }).get(k)).w.push([e.a, e.b]);
     });
@@ -208,10 +209,12 @@ export function buildSvg(spec) {
     const texts = [...phases.values()].filter((ph) => ph.text).map((ph) => {
       const nm = `${id}-T${pi++}`;
       win(nm, merge(ph.w), "opacity:1", "opacity:0");
-      return `<text x="${g.tx}" y="${g.ty}" class="${P}-pill" fill="${ph.state === "idle" && compact ? `var(--${P}-muted)` : tone(ph.state)}" style="${anim(nm)};opacity:0">${ph.text}</text>`;
+      const lines = ph.text.split("\n");
+      const inner = lines.length > 1 ? lines.map((l, i) => `<tspan x="${g.tx}" ${i ? 'dy="14"' : `y="${g.ty}"`}>${l}</tspan>`).join("") : ph.text;
+      return `<text x="${g.tx}" y="${g.ty}" class="${P}-pill" fill="${ph.state === "idle" && compact ? `var(--${P}-muted)` : tone(ph.state)}" style="${anim(nm)};opacity:0">${inner}</text>`;
     }).join("");
     const iy = compact ? (n.h - 32) / 2 : 14;
-    const label = compact ? `<text x="56" y="${n.h / 2 - 3}" class="${P}-label">${n.label}</text>` : `<text x="56" y="27" class="${P}-label">${n.label}</text><text x="56" y="43.5" class="${P}-sub">${n.sub}</text>`;
+    const label = compact ? `<text x="56" y="${arr ? n.h / 2 - 10 : n.h / 2 - 3}" class="${P}-label">${n.label}</text>` : `<text x="56" y="27" class="${P}-label">${n.label}</text><text x="56" y="43.5" class="${P}-sub">${n.sub}</text>`;
     return `<g transform="translate(${x0} ${y0})"><g class="${P}-pop" style="${anim(`${id}-pop`)}">
 <g style="${anim(`${id}-halo`)};opacity:0"><rect width="${n.w}" height="${n.h}" rx="14" fill="none" stroke="var(--${P}-ink)" stroke-opacity=".1" class="${P}-pulse"/></g>
 <g style="${anim(`${id}-ring`)};opacity:0"><rect width="${n.w}" height="${n.h}" rx="14" fill="none" stroke="var(--${P}-response)" stroke-opacity=".12" stroke-width="8"/></g>
