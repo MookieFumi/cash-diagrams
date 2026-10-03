@@ -173,13 +173,7 @@
      235,
      285
     ]
-   ],
-   "label": {
-    "text": "XML",
-    "x": 212,
-    "y": 268,
-    "anchor": "middle"
-   }
+   ]
   },
   "webTrx": {
    "points": [
@@ -191,13 +185,7 @@
      560,
      170
     ]
-   ],
-   "label": {
-    "text": "GET /transactions",
-    "x": 570,
-    "y": 152,
-    "anchor": "start"
-   }
+   ]
   },
   "webTools": {
    "bezier": [
@@ -249,13 +237,7 @@
      900,
      80
     ]
-   ],
-   "label": {
-    "text": "login",
-    "x": 845,
-    "y": 64,
-    "anchor": "middle"
-   }
+   ]
   },
   "updater": {
    "points": [
@@ -267,13 +249,7 @@
      1175,
      385
     ]
-   ],
-   "label": {
-    "text": "REST",
-    "x": 1197,
-    "y": 368,
-    "anchor": "middle"
-   }
+   ]
   },
   "toolsDb": {
    "points": [
@@ -285,13 +261,7 @@
      870,
      700
     ]
-   ],
-   "label": {
-    "text": "SQL",
-    "x": 880,
-    "y": 600,
-    "anchor": "start"
-   }
+   ]
   },
   "sharedDb": {
    "points": [
@@ -303,13 +273,7 @@
      1075,
      700
     ]
-   ],
-   "label": {
-    "text": "SQL",
-    "x": 1085,
-    "y": 600,
-    "anchor": "start"
-   }
+   ]
   },
   "trxDb": {
    "points": [
@@ -321,13 +285,7 @@
      495,
      700
     ]
-   ],
-   "label": {
-    "text": "INSERT / SELECT",
-    "x": 505,
-    "y": 668,
-    "anchor": "start"
-   }
+   ]
   }
  },
  "script": [
