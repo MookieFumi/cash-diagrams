@@ -26,7 +26,8 @@
     "text": "BACKGROUND SERVICES",
     "x": 251,
     "y": 445
-   }
+   },
+   "icon": "server"
   },
   {
    "id": "cash-device",

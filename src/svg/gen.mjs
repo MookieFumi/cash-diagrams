@@ -144,7 +144,9 @@ export function buildSvg(spec) {
   function drawGroup(n) {
     const x0 = n.x - n.w / 2, y0 = n.y - n.h / 2;
     const cap = n.caption ? `<text x="${n.caption.x - x0}" y="${n.caption.y - y0}" class="${P}-caption">${n.caption.text}</text>` : "";
-    return `<g transform="translate(${x0} ${y0})"><rect width="${n.w}" height="${n.h}" rx="16" fill="var(--${P}-card)" fill-opacity=".55" stroke="var(--${P}-line)" stroke-width="1.5"/><text x="22" y="28" class="${P}-label">${n.label}</text><text x="22" y="45" class="${P}-sub">${n.sub}</text>${cap}</g>`;
+    const ic = n.icon ? `<rect x="14" y="12" width="32" height="32" rx="8" fill="var(--${P}-muted)" fill-opacity=".1"/>${iconG(n.icon, 20, 18, `stroke="var(--${P}-ink)"`)}` : "";
+    const tx = n.icon ? 56 : 22;
+    return `<g class="${P}-group" transform="translate(${x0} ${y0})"><rect width="${n.w}" height="${n.h}" rx="16" fill="var(--${P}-card)" fill-opacity=".55" stroke="var(--${P}-line)" stroke-width="1.5"/>${ic}<text x="${tx}" y="${n.icon ? 26 : 28}" class="${P}-label">${n.label}</text><text x="${tx}" y="${n.icon ? 43 : 45}" class="${P}-sub">${n.sub}</text>${cap}</g>`;
   }
   function drawStatic(n, dashed) {
     const x0 = n.x - n.w / 2, y0 = n.y - n.h / 2, iy = (n.h - 32) / 2;
@@ -261,7 +263,7 @@ ${label}${layers}${texts}
 <defs><filter id="${P}-glow" filterUnits="userSpaceOnUse" x="0" y="0" width="${W}" height="${H}"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
 <pattern id="${P}-grid" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="var(--${P}-ink)" stroke-opacity=".07"/></pattern></defs>
 <g class="${P}-bg"><rect width="${W}" height="${H}" rx="16" fill="var(--${P}-paper)"/><rect width="${W}" height="${H}" rx="16" fill="url(#${P}-grid)"/><rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="16" fill="none" stroke="var(--${P}-line)"/></g>
-<g aria-hidden="true">${nodeSvg.filter((s) => s.includes(`stroke-width="1.5"/><text x="22"`)).join("\n")}${edgeSvg.join("")}${labelSvg.join("")}${burstSvg.join("")}${nodeSvg.filter((s) => !s.includes(`stroke-width="1.5"/><text x="22"`)).join("\n")}</g>
+<g aria-hidden="true">${nodeSvg.filter((s) => s.startsWith(`<g class="${P}-group"`)).join("\n")}${edgeSvg.join("")}${labelSvg.join("")}${burstSvg.join("")}${nodeSvg.filter((s) => !s.startsWith(`<g class="${P}-group"`)).join("\n")}</g>
 </svg>`;
   return { svg, loop: T, reset: R };
 }
