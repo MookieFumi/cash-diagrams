@@ -200,12 +200,12 @@ export function buildSvg(spec) {
     }).join("");
     const phases = new Map();
     seq.forEach((e) => {
-      const text = e.state === "idle" ? (compact ? n.sub : "En espera") : e.text;
+      const text = e.state === "idle" ? (compact ? n.sub : "") : e.text;
       const k = `${e.state}|${text}`;
       (phases.get(k) ?? phases.set(k, { state: e.state, text, w: [] }).get(k)).w.push([e.a, e.b]);
     });
     let pi = 0;
-    const texts = [...phases.values()].map((ph) => {
+    const texts = [...phases.values()].filter((ph) => ph.text).map((ph) => {
       const nm = `${id}-T${pi++}`;
       win(nm, merge(ph.w), "opacity:1", "opacity:0");
       return `<text x="${g.tx}" y="${g.ty}" class="${P}-pill" fill="${ph.state === "idle" && compact ? `var(--${P}-muted)` : tone(ph.state)}" style="${anim(nm)};opacity:0">${ph.text}</text>`;
