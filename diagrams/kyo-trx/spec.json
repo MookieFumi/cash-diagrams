@@ -1,0 +1,871 @@
+{
+ "slug": "kyo-trx",
+ "title": "kyo-trx",
+ "subtitle": "Ingesta de transacciones XML y consulta desde la web",
+ "description": "cash-device envía transacciones XML por POST a trx-api, que las guarda en SQL Server. La web Vue consulta trx-api, shared-api y toolings-api, con autenticación; devices-updater, un sistema externo, actualiza dispositivos vía shared-api. trx-api incluye caché en memoria y dos background services.",
+ "tags": [
+  "microservicios",
+  "SQL Server",
+  "Vue.js",
+  "XML"
+ ],
+ "width": 1470,
+ "height": 820,
+ "hold": 2.5,
+ "nodes": [
+  {
+   "id": "trx-api",
+   "kind": "group",
+   "label": "trx-api",
+   "sub": "Microservicio",
+   "x": 495,
+   "y": 395,
+   "w": 520,
+   "h": 450,
+   "caption": {
+    "text": "BACKGROUND SERVICES",
+    "x": 251,
+    "y": 445
+   },
+   "icon": "server"
+  },
+  {
+   "id": "cash-device",
+   "kind": "service",
+   "label": "cash-device",
+   "sub": "Sistema emisor",
+   "icon": "device",
+   "loader": "spinner",
+   "x": 105,
+   "y": 285,
+   "w": 170,
+   "h": 110
+  },
+  {
+   "id": "trx-endpoint",
+   "kind": "service",
+   "label": "API REST",
+   "sub": "Parseo de trx y consulta de trxs",
+   "icon": "server",
+   "loader": "bar",
+   "x": 495,
+   "y": 285,
+   "w": 488,
+   "h": 100
+  },
+  {
+   "id": "cache",
+   "kind": "static",
+   "label": "Caché en memoria",
+   "sub": "Compartida por la ingesta y la consulta de trxs",
+   "icon": "memory",
+   "x": 495,
+   "y": 380,
+   "w": 488,
+   "h": 62
+  },
+  {
+   "id": "balance-calculator",
+   "kind": "static",
+   "label": "balance-calculator",
+   "sub": "Background service",
+   "icon": "gear",
+   "x": 495,
+   "y": 490,
+   "w": 488,
+   "h": 62
+  },
+  {
+   "id": "fill-rate-calculator",
+   "kind": "static",
+   "label": "fill-rate-calculator",
+   "sub": "Background service",
+   "icon": "gear",
+   "x": 495,
+   "y": 565,
+   "w": 488,
+   "h": 62
+  },
+  {
+   "id": "web",
+   "kind": "service",
+   "label": "Web Vue.js",
+   "sub": "Consulta, preferencias, export.",
+   "icon": "web",
+   "x": 640,
+   "y": 80,
+   "w": 300,
+   "h": 90,
+   "loader": "bar"
+  },
+  {
+   "id": "idp",
+   "kind": "service",
+   "label": "Autenticación",
+   "sub": "Login y token",
+   "icon": "shield",
+   "x": 1000,
+   "y": 80,
+   "w": 200,
+   "h": 90,
+   "loader": "spinner"
+  },
+  {
+   "id": "toolings-api",
+   "kind": "service",
+   "label": "toolings-api",
+   "sub": [
+    "Exportación",
+    "de datos"
+   ],
+   "icon": "server",
+   "x": 870,
+   "y": 385,
+   "w": 190,
+   "h": 90,
+   "loader": "discs"
+  },
+  {
+   "id": "shared-api",
+   "kind": "service",
+   "label": "shared-api",
+   "sub": [
+    "Preferencias y",
+    "dispositivos"
+   ],
+   "icon": "server",
+   "x": 1075,
+   "y": 385,
+   "w": 200,
+   "h": 90,
+   "loader": "dots"
+  },
+  {
+   "id": "devices-updater",
+   "kind": "service",
+   "label": "devices-updater",
+   "sub": [
+    "Sistema externo"
+   ],
+   "icon": "device",
+   "x": 1335,
+   "y": 385,
+   "w": 230,
+   "h": 90,
+   "loader": "spinner"
+  },
+  {
+   "id": "sqlserver",
+   "kind": "service",
+   "label": "SQL Server",
+   "sub": "BBDD compartida por trx-api, shared-api y toolings-api",
+   "icon": "db",
+   "loader": "discs",
+   "x": 705,
+   "y": 740,
+   "w": 940,
+   "h": 80
+  }
+ ],
+ "edges": {
+  "xml": {
+   "points": [
+    [
+     190,
+     285
+    ],
+    [
+     235,
+     285
+    ]
+   ]
+  },
+  "webTrx": {
+   "points": [
+    [
+     560,
+     125
+    ],
+    [
+     560,
+     170
+    ]
+   ]
+  },
+  "webTools": {
+   "bezier": [
+    [
+     772,
+     125
+    ],
+    [
+     772,
+     265
+    ],
+    [
+     870,
+     240
+    ],
+    [
+     870,
+     340
+    ]
+   ]
+  },
+  "webShared": {
+   "bezier": [
+    [
+     786,
+     125
+    ],
+    [
+     786,
+     215
+    ],
+    [
+     1075,
+     215
+    ],
+    [
+     1075,
+     340
+    ]
+   ]
+  },
+  "login": {
+   "points": [
+    [
+     790,
+     80
+    ],
+    [
+     900,
+     80
+    ]
+   ]
+  },
+  "updater": {
+   "points": [
+    [
+     1220,
+     385
+    ],
+    [
+     1175,
+     385
+    ]
+   ]
+  },
+  "toolsDb": {
+   "points": [
+    [
+     870,
+     430
+    ],
+    [
+     870,
+     700
+    ]
+   ]
+  },
+  "sharedDb": {
+   "points": [
+    [
+     1075,
+     430
+    ],
+    [
+     1075,
+     700
+    ]
+   ]
+  },
+  "trxDb": {
+   "points": [
+    [
+     495,
+     620
+    ],
+    [
+     495,
+     700
+    ]
+   ]
+  }
+ },
+ "script": [
+  {
+   "set": [
+    "cash-device",
+    "loading",
+    "Enviando XML"
+   ]
+  },
+  {
+   "wait": 0.4
+  },
+  {
+   "fire": {
+    "edge": "xml",
+    "kind": "request",
+    "count": 3,
+    "dur": 1.0
+   }
+  },
+  {
+   "set": [
+    "trx-endpoint",
+    "loading",
+    "Validando XML"
+   ]
+  },
+  {
+   "wait": 0.5
+  },
+  {
+   "set": [
+    "trx-endpoint",
+    "loading",
+    "Parseando trxs"
+   ]
+  },
+  {
+   "set": [
+    "sqlserver",
+    "loading",
+    "Insertando trx"
+   ]
+  },
+  {
+   "fire": {
+    "edge": "trxDb",
+    "kind": "request",
+    "count": 3,
+    "dur": 0.9
+   }
+  },
+  {
+   "wait": 0.3
+  },
+  {
+   "set": [
+    "sqlserver",
+    "done",
+    "Trx guardada"
+   ]
+  },
+  {
+   "fire": {
+    "edge": "trxDb",
+    "kind": "response",
+    "count": 2,
+    "dur": 0.8,
+    "reverse": true
+   }
+  },
+  {
+   "set": [
+    "trx-endpoint",
+    "idle",
+    ""
+   ]
+  },
+  {
+   "fire": {
+    "edge": "xml",
+    "kind": "response",
+    "count": 2,
+    "dur": 0.9,
+    "reverse": true
+   }
+  },
+  {
+   "set": [
+    "cash-device",
+    "done",
+    "XML aceptado"
+   ]
+  },
+  {
+   "wait": 0.8
+  },
+  {
+   "set": [
+    "cash-device",
+    "idle",
+    ""
+   ]
+  },
+  {
+   "set": [
+    "sqlserver",
+    "idle",
+    ""
+   ]
+  },
+  {
+   "set": [
+    "web",
+    "loading",
+    "Consultando trxs"
+   ]
+  },
+  {
+   "wait": 0.3
+  },
+  {
+   "fire": {
+    "edge": "webTrx",
+    "kind": "request",
+    "count": 2,
+    "dur": 0.7
+   }
+  },
+  {
+   "set": [
+    "trx-endpoint",
+    "loading",
+    "Consultando trxs"
+   ]
+  },
+  {
+   "set": [
+    "sqlserver",
+    "loading",
+    "Leyendo trxs"
+   ]
+  },
+  {
+   "fire": {
+    "edge": "trxDb",
+    "kind": "request",
+    "count": 2,
+    "dur": 0.8
+   }
+  },
+  {
+   "wait": 0.3
+  },
+  {
+   "fire": {
+    "edge": "trxDb",
+    "kind": "response",
+    "count": 3,
+    "dur": 0.8,
+    "reverse": true
+   }
+  },
+  {
+   "set": [
+    "sqlserver",
+    "done",
+    "Trxs servidas"
+   ]
+  },
+  {
+   "set": [
+    "trx-endpoint",
+    "idle",
+    ""
+   ]
+  },
+  {
+   "fire": {
+    "edge": "webTrx",
+    "kind": "response",
+    "count": 3,
+    "dur": 0.7,
+    "reverse": true
+   }
+  },
+  {
+   "set": [
+    "web",
+    "done",
+    "Trxs recibidas"
+   ]
+  },
+  {
+   "wait": 0.8
+  },
+  {
+   "set": [
+    "web",
+    "idle",
+    ""
+   ]
+  },
+  {
+   "set": [
+    "sqlserver",
+    "idle",
+    ""
+   ]
+  },
+  {
+   "set": [
+    "web",
+    "loading",
+    "Iniciando sesión"
+   ]
+  },
+  {
+   "wait": 0.3
+  },
+  {
+   "fire": {
+    "edge": "login",
+    "kind": "request",
+    "count": 2,
+    "dur": 0.7
+   }
+  },
+  {
+   "set": [
+    "idp",
+    "loading",
+    "Validando login"
+   ]
+  },
+  {
+   "wait": 0.6
+  },
+  {
+   "set": [
+    "idp",
+    "done",
+    "Token emitido"
+   ]
+  },
+  {
+   "fire": {
+    "edge": "login",
+    "kind": "response",
+    "count": 2,
+    "dur": 0.7,
+    "reverse": true
+   }
+  },
+  {
+   "set": [
+    "web",
+    "done",
+    "Sesión iniciada"
+   ]
+  },
+  {
+   "wait": 0.8
+  },
+  {
+   "set": [
+    "web",
+    "idle",
+    ""
+   ]
+  },
+  {
+   "set": [
+    "idp",
+    "idle",
+    ""
+   ]
+  },
+  {
+   "set": [
+    "web",
+    "loading",
+    "Preferencias"
+   ]
+  },
+  {
+   "wait": 0.3
+  },
+  {
+   "fire": {
+    "edge": "webShared",
+    "kind": "request",
+    "count": 2,
+    "dur": 0.8
+   }
+  },
+  {
+   "set": [
+    "shared-api",
+    "loading",
+    "Consultando"
+   ]
+  },
+  {
+   "set": [
+    "sqlserver",
+    "loading",
+    "Leyendo prefs."
+   ]
+  },
+  {
+   "fire": {
+    "edge": "sharedDb",
+    "kind": "request",
+    "count": 2,
+    "dur": 0.8
+   }
+  },
+  {
+   "wait": 0.3
+  },
+  {
+   "fire": {
+    "edge": "sharedDb",
+    "kind": "response",
+    "count": 3,
+    "dur": 0.8,
+    "reverse": true
+   }
+  },
+  {
+   "set": [
+    "sqlserver",
+    "done",
+    "Prefs. servidas"
+   ]
+  },
+  {
+   "fire": {
+    "edge": "webShared",
+    "kind": "response",
+    "count": 3,
+    "dur": 0.8,
+    "reverse": true
+   }
+  },
+  {
+   "set": [
+    "shared-api",
+    "done",
+    "Respuesta lista"
+   ]
+  },
+  {
+   "set": [
+    "web",
+    "done",
+    "Preferencias ok"
+   ]
+  },
+  {
+   "wait": 0.8
+  },
+  {
+   "set": [
+    "web",
+    "idle",
+    ""
+   ]
+  },
+  {
+   "set": [
+    "shared-api",
+    "idle",
+    ""
+   ]
+  },
+  {
+   "set": [
+    "sqlserver",
+    "idle",
+    ""
+   ]
+  },
+  {
+   "set": [
+    "devices-updater",
+    "loading",
+    "Enviando cambios"
+   ]
+  },
+  {
+   "wait": 0.3
+  },
+  {
+   "fire": {
+    "edge": "updater",
+    "kind": "request",
+    "count": 2,
+    "dur": 0.7
+   }
+  },
+  {
+   "set": [
+    "shared-api",
+    "loading",
+    "Actualizando"
+   ]
+  },
+  {
+   "set": [
+    "sqlserver",
+    "loading",
+    "Guardando cambios"
+   ]
+  },
+  {
+   "fire": {
+    "edge": "sharedDb",
+    "kind": "request",
+    "count": 3,
+    "dur": 0.8
+   }
+  },
+  {
+   "wait": 0.3
+  },
+  {
+   "set": [
+    "sqlserver",
+    "done",
+    "Dispositivos guardados"
+   ]
+  },
+  {
+   "fire": {
+    "edge": "sharedDb",
+    "kind": "response",
+    "count": 2,
+    "dur": 0.8,
+    "reverse": true
+   }
+  },
+  {
+   "fire": {
+    "edge": "updater",
+    "kind": "response",
+    "count": 2,
+    "dur": 0.7,
+    "reverse": true
+   }
+  },
+  {
+   "set": [
+    "shared-api",
+    "done",
+    "Datos al día"
+   ]
+  },
+  {
+   "set": [
+    "devices-updater",
+    "done",
+    "Actualizado"
+   ]
+  },
+  {
+   "wait": 0.8
+  },
+  {
+   "set": [
+    "devices-updater",
+    "idle",
+    ""
+   ]
+  },
+  {
+   "set": [
+    "shared-api",
+    "idle",
+    ""
+   ]
+  },
+  {
+   "set": [
+    "sqlserver",
+    "idle",
+    ""
+   ]
+  },
+  {
+   "set": [
+    "web",
+    "loading",
+    "Exportando"
+   ]
+  },
+  {
+   "wait": 0.3
+  },
+  {
+   "fire": {
+    "edge": "webTools",
+    "kind": "request",
+    "count": 2,
+    "dur": 0.8
+   }
+  },
+  {
+   "set": [
+    "toolings-api",
+    "loading",
+    "Generando"
+   ]
+  },
+  {
+   "set": [
+    "sqlserver",
+    "loading",
+    "Leyendo datos"
+   ]
+  },
+  {
+   "fire": {
+    "edge": "toolsDb",
+    "kind": "request",
+    "count": 2,
+    "dur": 0.9
+   }
+  },
+  {
+   "wait": 0.3
+  },
+  {
+   "fire": {
+    "edge": "toolsDb",
+    "kind": "response",
+    "count": 4,
+    "dur": 0.9,
+    "reverse": true
+   }
+  },
+  {
+   "set": [
+    "sqlserver",
+    "done",
+    "Datos servidos"
+   ]
+  },
+  {
+   "wait": 0.4
+  },
+  {
+   "fire": {
+    "edge": "webTools",
+    "kind": "response",
+    "count": 3,
+    "dur": 0.8,
+    "reverse": true
+   }
+  },
+  {
+   "set": [
+    "toolings-api",
+    "done",
+    "Export listo"
+   ]
+  },
+  {
+   "set": [
+    "web",
+    "done",
+    "Export recibido"
+   ]
+  }
+ ]
+}
