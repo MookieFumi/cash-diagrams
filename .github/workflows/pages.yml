@@ -17,19 +17,14 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
-      - name: Build SVG and comparison page
-        run: |
-          node eval/svg/gen.mjs
-          node eval/compare.mjs
-      - name: Build JSX reference
-        working-directory: eval/jsx
+      - name: Build JSX player (generic, driven by spec.json)
+        working-directory: src/jsx
         run: npm ci && npm run build
-      - name: Assemble site
-        run: |
-          mkdir -p _site/jsx _site/svg
-          cp eval/index.html _site/index.html
-          cp -r eval/jsx/dist _site/jsx/dist
-          cp eval/svg/request-flow.svg eval/svg/request-flow.snippet.html _site/svg/
+      - name: Build original JSX example (request-flow)
+        working-directory: diagrams/request-flow/jsx
+        run: npm ci && npm run build
+      - name: Build SVGs and assemble the site
+        run: node src/build.mjs
       - uses: actions/upload-pages-artifact@v3
         with: { path: _site }
   deploy:

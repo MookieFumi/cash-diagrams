@@ -1,8 +1,12 @@
 {
   "slug": "request-flow",
   "title": "Recorrido de una petición hasta el modelo",
-  "subtitle": "Ejemplo base",
+  "subtitle": "Cliente, API, base de datos y LLM",
   "description": "Cliente → Servidor API → Base de datos y modelo LLM. Es el ejemplo original (JSX) y su equivalente en SVG puro; se conserva como referencia.",
-  "tags": ["ejemplo base", "LLM", "API"],
+  "tags": [
+    "ejemplo base",
+    "LLM",
+    "API"
+  ],
   "example": true
 }

@@ -32,6 +32,8 @@ const ICONS = {
   web: <><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 9h18M7 6.5h.01M10 6.5h.01" /></>,
   shield: <><path d="M12 3l8 3v6c0 4.5-3.2 7.8-8 9-4.8-1.2-8-4.5-8-9V6l8-3z" /><path d="M9 12l2 2 4-4" /></>,
   calc: <><rect x="5" y="3" width="14" height="18" rx="2" /><path d="M8 7h8M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01" /></>,
+  memory: <><rect x="3" y="7" width="18" height="10" rx="2" /><path d="M7 7V4M12 7V4M17 7V4M7 20v-3M12 20v-3M17 20v-3" /></>,
+  gear: <><circle cx="12" cy="12" r="3" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1" /></>,
   clock: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></>,
 };
 function Icon({ name }) {
@@ -115,9 +117,12 @@ const box = (n, W, H) => ({
 function Group({ node, W, H }) {
   return (
     <div className="absolute rounded-2xl border-[1.5px]" style={{ ...box(node, W, H), borderColor: C.line, background: `${C.card}8c` }}>
-      <div className="px-[22px] pt-[14px] leading-tight">
-        <div className="text-[15px] font-semibold">{node.label}</div>
-        <div className="text-xs" style={{ color: C.muted }}>{node.sub}</div>
+      <div className="flex items-start gap-2.5 px-3.5 pt-3 leading-tight">
+        {node.icon && <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg" style={{ background: `${C.muted}1a`, color: C.ink }}><Icon name={node.icon} /></span>}
+        <div className={node.icon ? "" : "px-2 pt-1"}>
+          <div className="whitespace-nowrap text-[15px] font-semibold">{node.label}</div>
+          <div className="text-xs" style={{ color: C.muted }}>{node.sub}</div>
+        </div>
       </div>
       {node.caption && (
         <div className="absolute text-[11px] font-semibold tracking-[0.08em]" style={{ color: C.muted, left: node.caption.x - (node.x - node.w / 2), top: node.caption.y - (node.y - node.h / 2) - 9 }}>
@@ -128,6 +133,9 @@ function Group({ node, W, H }) {
   );
 }
 
+const lines = (sub) => (Array.isArray(sub) ? sub : [sub]);
+const Sub = ({ sub, style }) => lines(sub).map((l, i) => <span key={i} className="block text-xs" style={style}>{l}</span>);
+
 function StaticNode({ node, W, H, dashed }) {
   return (
     <div className="absolute flex items-center gap-2.5 rounded-[14px] border-[1.5px] px-3.5" style={{ ...box(node, W, H), borderColor: dashed ? `${C.line}cc` : C.line, borderStyle: dashed ? "dashed" : "solid", background: dashed ? "transparent" : C.card, opacity: dashed ? 0.85 : 1 }}>
@@ -135,8 +143,8 @@ function StaticNode({ node, W, H, dashed }) {
         <Icon name={node.icon} />
       </span>
       <span className="flex min-w-0 flex-col leading-tight">
-        <span className="text-[15px] font-semibold" style={{ color: dashed ? C.muted : C.ink }}>{node.label}</span>
-        <span className="text-xs" style={{ color: C.muted }}>{node.sub}</span>
+        <span className="whitespace-nowrap text-[15px] font-semibold" style={{ color: dashed ? C.muted : C.ink }}>{node.label}</span>
+        <Sub sub={node.sub} style={{ color: C.muted }} />
       </span>
     </div>
   );
@@ -152,11 +160,12 @@ function StateNode({ node, state, text, reduce, W, H }) {
     idle: { borderColor: C.line, scale: 1, boxShadow: "0 0 0 0px rgba(22,37,59,0)" },
   }[state];
   const label = compact ? node.label : node.label;
-  const shown = text || (compact ? node.sub : "En espera");
+  const idleSub = compact && !text;
+  const shown = text || (compact ? lines(node.sub).join("\n") : "");
   const textEl = (
     <AnimatePresence mode="wait" initial={false}>
-      <motion.span key={shown} aria-live="polite" className="text-[11px] font-medium leading-tight" style={{ color: state === "idle" && compact ? C.muted : tone }} initial={{ opacity: 0, y: 3 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -3 }} transition={{ duration: 0.15 }}>
-        {shown}
+      <motion.span key={shown} aria-live="polite" className="text-[11px] font-medium leading-tight" style={{ color: idleSub ? C.muted : tone }} initial={{ opacity: 0, y: 3 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -3 }} transition={{ duration: 0.15 }}>
+        {shown.split("\n").map((l, i) => <span key={i} className="block">{l}</span>)}
       </motion.span>
     </AnimatePresence>
   );
@@ -172,18 +181,18 @@ function StateNode({ node, state, text, reduce, W, H }) {
         <div className="flex h-full items-center gap-2.5 px-3.5">
           <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg" style={{ background: `${tone}14`, color: tone }}><Icon name={node.icon} /></span>
           <span className="flex min-w-0 flex-1 flex-col leading-tight">
-            <span className="text-[15px] font-semibold">{label}</span>
+            <span className="whitespace-nowrap text-[15px] font-semibold">{label}</span>
             {textEl}
           </span>
-          <span className="flex h-5 w-8 shrink-0 items-center justify-center"><StateGlyph state={state} color={tone} kind={node.loader} reduce={reduce} /></span>
+          <span className="flex h-5 w-8 shrink-0 items-center justify-center">{state !== "idle" && <StateGlyph state={state} color={tone} kind={node.loader} reduce={reduce} />}</span>
         </div>
       ) : (
         <div className="flex h-full flex-col justify-between p-3.5">
           <span className="flex items-center gap-2.5">
             <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg" style={{ background: `${tone}14`, color: tone }}><Icon name={node.icon} /></span>
             <span className="flex flex-col leading-tight">
-              <span className="text-[15px] font-semibold">{node.label}</span>
-              <span className="text-xs" style={{ color: C.muted }}>{node.sub}</span>
+              <span className="whitespace-nowrap text-[15px] font-semibold">{node.label}</span>
+              <Sub sub={node.sub} style={{ color: C.muted }} />
             </span>
           </span>
           <span className="flex items-center gap-2.5 rounded-md px-2 py-1.5" style={{ background: `${tone}10` }}>

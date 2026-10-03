@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Catálogo de diagramas de solución</title>
+<meta name="description" content="Diagramas de arquitectura animados, disponibles como SVG sin dependencias y como componente JSX.">
+<style>
+:root{
+  --bg:#F4F6FA;--bg2:#EAEFF6;--surface:#FFFFFF;--ink:#16253B;--muted:#5B6B82;--line:#D5DCE6;
+  --accent:#10857A;--accent2:#E58A1F;--shadow:0 1px 2px rgba(22,37,59,.06),0 12px 32px -12px rgba(22,37,59,.18);
+  --radius:20px;
+}
+:root[data-theme="dark"]{
+  --bg:#0C1422;--bg2:#101A2C;--surface:#152036;--ink:#E4ECF7;--muted:#9AA9BF;--line:#26344D;
+  --accent:#2CB5A8;--accent2:#F0A040;--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px -12px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html{color-scheme:light}
+html[data-theme="dark"]{color-scheme:dark}
+body{margin:0;background:radial-gradient(1200px 520px at 15% -10%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 60%),radial-gradient(900px 480px at 100% 0%,color-mix(in srgb,var(--accent2) 12%,transparent),transparent 55%),var(--bg);
+  color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+header.top{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em}
+.logo{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2))}
+.theme{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 14px;font:inherit;font-size:14px;cursor:pointer}
+.theme:hover{border-color:var(--accent)}
+.hero{padding:34px 0 26px}
+.hero h1{font-size:clamp(2rem,4.6vw,3.4rem);line-height:1.08;letter-spacing:-.03em;margin:0 0 14px;max-width:18ch}
+.hero h1 span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:0;max-width:62ch;color:var(--muted);font-size:1.08rem}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:26px 0 22px}
+.filters small{color:var(--muted);margin-right:4px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,520px),1fr));gap:22px;padding-bottom:56px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px)}
+.card[hidden]{display:none}
+.thumb{display:block;background:var(--bg2);border-bottom:1px solid var(--line);padding:14px}
+.thumb svg{display:block;width:100%;height:auto;border-radius:12px}
+.body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:6px;flex:1}
+.meta{display:flex;gap:8px}
+.badge{font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 10px}
+.badge.live{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.card h2{margin:6px 0 0;font-size:1.5rem;letter-spacing:-.02em}
+.sub{margin:0;color:var(--accent);font-weight:600;font-size:.95rem}
+.desc{margin:4px 0 4px;color:var(--muted);font-size:.97rem}
+.tags{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 14px;padding:0}
+.tags li{font-size:12px;background:var(--bg2);border-radius:999px;padding:3px 10px;color:var(--muted)}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.btn{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:9px 14px;font:inherit;font-size:14px;font-weight:600;text-decoration:none;cursor:pointer;transition:border-color .15s,transform .1s}
+.btn:hover{border-color:var(--accent)}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.ghost{border-style:dashed}
+.btn:focus-visible,.chip:focus-visible,.theme:focus-visible,.thumb:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px;padding:22px 0 40px}
+footer a{color:inherit}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;opacity:0;pointer-events:none;transition:.2s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (max-width:560px){.grid{grid-template-columns:1fr}.hero{padding-top:14px}}
+@media (prefers-reduced-motion:reduce){.card{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><span class="logo" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><path d="M10 6.5h4a3 3 0 0 1 3 3V14"/></svg></span>cash-diagrams</div>
+    <button class="theme" type="button" id="theme" aria-pressed="false">Modo oscuro</button>
+  </header>
+
+  <section class="hero">
+    <h1>Diagramas de solución <span>que se explican solos</span></h1>
+    <p>Catálogo de arquitecturas animadas. Cada diagrama existe como <strong>SVG</strong> autocontenido (sin JS ni dependencias, listo para pegar inline) y como componente <strong>JSX</strong> interactivo.</p>
+    <div class="filters" id="filters"><small><!--COUNT--> diagramas</small><!--CHIPS--></div>
+  </section>
+
+  <main class="grid" id="grid">
+<!--CARDS-->
+  </main>
+
+  <footer>Los SVG son claros por defecto. Para el modo oscuro, añade <code>data-theme="dark"</code> o <code>data-theme="auto"</code> al elemento <code>&lt;svg&gt;</code>; <code>data-bg="transparent"</code> quita el fondo.</footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+  var root=document.documentElement,btn=document.getElementById('theme'),toast=document.getElementById('toast');
+  function setTheme(t){
+    root.setAttribute('data-theme',t);
+    document.querySelectorAll('.thumb svg').forEach(function(s){s.setAttribute('data-theme',t)});
+    btn.textContent=t==='dark'?'Modo claro':'Modo oscuro';btn.setAttribute('aria-pressed',t==='dark');
+    try{localStorage.setItem('cd-theme',t)}catch(e){}
+  }
+  var saved;try{saved=localStorage.getItem('cd-theme')}catch(e){}
+  if(saved==='dark')setTheme('dark');
+  btn.addEventListener('click',function(){setTheme(root.getAttribute('data-theme')==='dark'?'light':'dark')});
+
+  function show(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(show.t);show.t=setTimeout(function(){toast.classList.remove('show')},1800)}
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click',function(){
+      fetch(b.dataset.copy).then(function(r){return r.text()}).then(function(t){return navigator.clipboard.writeText(t)})
+        .then(function(){show('Snippet copiado')},function(){show('No se pudo copiar; usa el enlace SVG')});
+    });
+  });
+
+  var active=null;
+  document.querySelectorAll('.chip').forEach(function(c){
+    c.setAttribute('aria-pressed','false');
+    c.addEventListener('click',function(){
+      active=active===c.dataset.tag?null:c.dataset.tag;
+      document.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed',String(x.dataset.tag===active))});
+      document.querySelectorAll('.card').forEach(function(card){card.hidden=!!active&&card.dataset.tags.split('|').indexOf(active)<0});
+    });
+  });
+})();
+</script>
+</body>
+</html>
