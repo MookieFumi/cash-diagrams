@@ -490,6 +490,17 @@ const LOG_COLOR = { request: C.request, response: C.response, error: C.error };
 export default function ArchitectureFlow() {
   const reduce = useReducedMotion();
 
+  // Responsive: the 1000x560 scene is scaled to the width of its frame.
+  const frameRef = useRef(null);
+  const [scale, setScale] = useState(1);
+  useEffect(() => {
+    const el = frameRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([e]) => setScale(Math.min(1, e.contentRect.width / W)));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   const [status, setStatus] = useState(INITIAL);
   const [bursts, setBursts] = useState([]);
   const [log, setLog] = useState([]);
@@ -689,12 +700,13 @@ export default function ArchitectureFlow() {
 
         {/* Diagram */}
         <div
-          className="overflow-x-auto rounded-2xl border"
-          style={{ ...PAPER_STYLE, borderColor: C.line }}
+          ref={frameRef}
+          className="overflow-hidden rounded-2xl border"
+          style={{ ...PAPER_STYLE, borderColor: C.line, height: H * scale }}
         >
           <div
-            className="relative mx-auto min-w-[920px]"
-            style={{ aspectRatio: `${W} / ${H}` }}
+            className="relative origin-top-left"
+            style={{ width: W, height: H, transform: `scale(${scale})` }}
           >
             <svg
               viewBox={`0 0 ${W} ${H}`}

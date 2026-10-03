@@ -3,12 +3,17 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 const here = dirname(fileURLToPath(import.meta.url));
 const svg = readFileSync(join(here, "svg/request-flow.svg"), "utf8");
+const variant = (theme, bg) => `<div class="v" style="background:${bg ? "repeating-linear-gradient(45deg,#fff8e6,#fff8e6 12px,#fff 12px,#fff 24px)" : "transparent"}">${svg.replace(/(class="cd-[^"]+") data-theme="light"/, `$1 data-theme="${theme}"${bg ? ` data-bg="${bg}"` : ""}`).replace(/cd-request-flow/g, `cd-request-flow-${theme}${bg ? "-" + bg : ""}`)}<p class="s">theme=${theme}${bg ? ", bg=" + bg : ""}</p></div>`;
 writeFileSync(join(here, "index.html"), `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JSX vs SVG · evaluación</title>
 <style>body{font:16px/1.5 system-ui,sans-serif;margin:0;background:#f4f6f9;color:#16253B}main{max-width:1080px;margin:0 auto;padding:32px 16px}h1{margin:0 0 4px}h2{margin:32px 0 8px}p.s{color:#5B6B82;margin:0}
-iframe{width:100%;height:1010px;border:1px solid #4A5F7D;border-radius:12px;background:#fff}table{border-collapse:collapse;width:100%;background:#fff}td,th{border:1px solid #d5dce6;padding:8px 10px;text-align:left;vertical-align:top;font-size:14px}th{background:#e9eef3}</style></head><body><main>
+code{background:#e9eef3;padding:1px 5px;border-radius:4px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:16px}.v p{margin:4px 0 0}iframe{width:100%;height:1010px;border:1px solid #4A5F7D;border-radius:12px;background:#fff}table{border-collapse:collapse;width:100%;background:#fff}td,th{border:1px solid #d5dce6;padding:8px 10px;text-align:left;vertical-align:top;font-size:14px}th{background:#e9eef3}</style></head><body><main>
 <h1>Evaluación: JSX vs SVG puro</h1><p class="s">Mismo diagrama, dos implementaciones. El SVG va incrustado inline en esta misma página (sin JS ni dependencias).</p>
 <h2>A · SVG inline (bucle automático)</h2>
+<p class="s">Por defecto claro, aunque el sistema esté en modo oscuro: <code>data-theme="light"</code>.</p>
 ${svg}
+<h2>A2 · Variantes de tema y fondo</h2>
+<p class="s"><code>data-theme="dark"</code> · <code>data-theme="auto"</code> (sigue al sistema) · <code>data-bg="transparent"</code></p>
+<div class="grid">${variant("dark", "")}${variant("auto", "")}${variant("light", "transparent")}</div>
 <h2>B · JSX original (React + framer-motion + Tailwind, interactivo)</h2>
 <iframe src="jsx/dist/index.html" title="JSX original"></iframe>
 <h2>Comparativa</h2>

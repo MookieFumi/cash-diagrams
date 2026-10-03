@@ -229,7 +229,10 @@ ${layers}${texts}
 const vars = (c) => Object.entries(c).map(([k, v]) => `--${P}-${k}:${v}`).join(";");
 const base = `
 .${P}{${vars(COL.light)};font-family:'Bricolage Grotesque','Segoe UI',system-ui,-apple-system,sans-serif;display:block;width:100%;height:auto}
-@media (prefers-color-scheme:dark){.${P}{${vars(COL.dark)}}}
+/* tema claro por defecto; oscuro solo con data-theme="dark" o data-theme="auto" (sigue al sistema) */
+.${P}[data-theme="dark"]{${vars(COL.dark)}}
+@media (prefers-color-scheme:dark){.${P}[data-theme="auto"]{${vars(COL.dark)}}}
+.${P}[data-bg="transparent"] .${P}-bg{display:none}
 .${P}-edge{fill:none;stroke:var(--${P}-line);stroke-width:2;stroke-dasharray:7 7;stroke-linecap:round;opacity:.55}
 .${P}-edge-on{stroke:var(--${P}-ink);opacity:0}
 .${P}-dot{fill:var(--${P}-ink)}
@@ -251,15 +254,17 @@ const base = `
 @media (prefers-reduced-motion:reduce){.${P} *{animation-play-state:paused!important;animation-delay:-${(R - 1).toFixed(1)}s!important}}
 `;
 
-const svg = `<svg xmlns="http://www.w3.org/2000/svg" class="${P}" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="${P}-t ${P}-d">
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" class="${P}" data-theme="light" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="${P}-t ${P}-d">
 <title id="${P}-t">${TITLE}</title><desc id="${P}-d">${DESC}</desc>
 <style>${base}${css.join("")}</style>
 <defs><filter id="${P}-glow" filterUnits="userSpaceOnUse" x="0" y="0" width="${W}" height="${H}"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
 <pattern id="${P}-grid" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="var(--${P}-ink)" stroke-opacity=".07"/></pattern></defs>
-<rect width="${W}" height="${H}" rx="16" fill="var(--${P}-paper)"/><rect width="${W}" height="${H}" rx="16" fill="url(#${P}-grid)"/><rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="16" fill="none" stroke="var(--${P}-line)"/>
+<g class="${P}-bg"><rect width="${W}" height="${H}" rx="16" fill="var(--${P}-paper)"/><rect width="${W}" height="${H}" rx="16" fill="url(#${P}-grid)"/><rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="16" fill="none" stroke="var(--${P}-line)"/></g>
 <g aria-hidden="true">${edgeSvg.join("")}${labels}${burstSvg.join("")}${nodeSvg.join("\n")}</g>
 </svg>`;
 
 writeFileSync(join(here, `${slug}.svg`), svg);
-writeFileSync(join(here, `${slug}.snippet.html`), `<!-- ${TITLE} · pega este bloque tal cual; sin JS ni dependencias -->\n${svg}\n`);
+writeFileSync(join(here, `${slug}.snippet.html`), `<!-- ${TITLE} · pega este bloque tal cual; sin JS ni dependencias.
+     Tema (atributos del <svg>): data-theme="light" (por defecto) | "dark" | "auto" (sigue al sistema)
+     Fondo: data-bg="transparent" quita el papel y la rejilla -->\n${svg}\n`);
 console.log(`${slug}.svg  ${(svg.length / 1024).toFixed(1)} KB  loop=${T}s  reset@${R}s`);
