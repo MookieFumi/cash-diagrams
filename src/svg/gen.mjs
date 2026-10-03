@@ -150,7 +150,10 @@ export function buildSvg(spec) {
     const x0 = n.x - n.w / 2, y0 = n.y - n.h / 2, iy = (n.h - 32) / 2;
     const d = dashed ? ` stroke-dasharray="6 5"` : "";
     const fill = dashed ? `fill="none" stroke="var(--${P}-line)" stroke-opacity=".8"` : `fill="var(--${P}-card)" stroke="var(--${P}-line)"`;
-    return `<g transform="translate(${x0} ${y0})"${dashed ? ` opacity=".85"` : ""}><rect width="${n.w}" height="${n.h}" rx="14" ${fill} stroke-width="1.5"${d}/><rect x="14" y="${iy}" width="32" height="32" rx="8" fill="var(--${P}-muted)" fill-opacity=".1"/>${iconG(n.icon, 20, iy + 6, `stroke="var(--${P}-${dashed ? "muted" : "ink"})"`)}<text x="56" y="${n.h / 2 - 3}" class="${P}-label${dashed ? ` ${P}-dim` : ""}">${n.label}</text><text x="56" y="${n.h / 2 + 14}" class="${P}-sub">${n.sub}</text></g>`;
+    const lines = Array.isArray(n.sub) ? n.sub : [n.sub];
+    const ly = n.h / 2 - 3 - (lines.length - 1) * 7;
+    const subs = lines.map((l, i) => `<text x="56" y="${ly + 17 + i * 14}" class="${P}-sub">${l}</text>`).join("");
+    return `<g transform="translate(${x0} ${y0})"${dashed ? ` opacity=".85"` : ""}><rect width="${n.w}" height="${n.h}" rx="14" ${fill} stroke-width="1.5"${d}/><rect x="14" y="${iy}" width="32" height="32" rx="8" fill="var(--${P}-muted)" fill-opacity=".1"/>${iconG(n.icon, 20, iy + 6, `stroke="var(--${P}-${dashed ? "muted" : "ink"})"`)}<text x="56" y="${ly}" class="${P}-label${dashed ? ` ${P}-dim` : ""}">${n.label}</text>${subs}</g>`;
   }
   function drawStateful(n) {
     const compact = n.h <= 90;

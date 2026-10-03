@@ -2,15 +2,15 @@
  "slug": "kyo-trx",
  "title": "kyo-trx",
  "subtitle": "Ingesta de transacciones XML y consulta desde la web",
- "description": "cash-device envía transacciones XML por POST a trx-api, que las guarda en SQL Server. La web Vue consulta trx-api, shared-api y toolings-api, con autenticación. trx-api incluye caché en memoria y dos background services.",
+ "description": "cash-device envía transacciones XML por POST a trx-api, que las guarda en SQL Server. La web Vue consulta trx-api, shared-api y toolings-api, con autenticación; devices-updater, un sistema externo, actualiza dispositivos vía shared-api. trx-api incluye caché en memoria y dos background services.",
  "tags": [
   "microservicios",
   "SQL Server",
   "Vue.js",
   "XML"
  ],
- "width": 1200,
- "height": 880,
+ "width": 1470,
+ "height": 820,
  "hold": 3,
  "nodes": [
   {
@@ -18,14 +18,14 @@
    "kind": "group",
    "label": "trx-api",
    "sub": "Microservicio",
-   "x": 450,
-   "y": 435,
-   "w": 380,
-   "h": 530,
+   "x": 495,
+   "y": 395,
+   "w": 520,
+   "h": 450,
    "caption": {
     "text": "BACKGROUND SERVICES",
-    "x": 280,
-    "y": 525
+    "x": 509,
+    "y": 445
    }
   },
   {
@@ -35,7 +35,7 @@
    "sub": "Sistema emisor",
    "icon": "device",
    "loader": "spinner",
-   "x": 115,
+   "x": 105,
    "y": 285,
    "w": 170,
    "h": 110
@@ -44,34 +44,37 @@
    "id": "trx-post",
    "kind": "service",
    "label": "POST /transactions",
-   "sub": "Ingesta de transacciones XML",
+   "sub": "Ingesta de XML",
    "icon": "server",
    "loader": "bar",
-   "x": 450,
+   "x": 366,
    "y": 285,
-   "w": 300,
+   "w": 230,
    "h": 100
   },
   {
    "id": "trx-get",
    "kind": "static",
    "label": "API REST",
-   "sub": "Resto de endpoints (consulta)",
+   "sub": [
+    "Resto de endpoints",
+    "(consulta)"
+   ],
    "icon": "server",
-   "x": 450,
-   "y": 385,
-   "w": 300,
-   "h": 62
+   "x": 624,
+   "y": 285,
+   "w": 230,
+   "h": 100
   },
   {
    "id": "cache",
    "kind": "static",
    "label": "Caché en memoria",
-   "sub": "Datos cacheados de trx-api",
+   "sub": "Datos en memoria",
    "icon": "memory",
-   "x": 450,
-   "y": 460,
-   "w": 300,
+   "x": 624,
+   "y": 380,
+   "w": 230,
    "h": 62
   },
   {
@@ -80,9 +83,9 @@
    "label": "balance-calculator",
    "sub": "Background service",
    "icon": "gear",
-   "x": 450,
-   "y": 570,
-   "w": 300,
+   "x": 624,
+   "y": 490,
+   "w": 230,
    "h": 62
   },
   {
@@ -91,9 +94,9 @@
    "label": "fill-rate-calculator",
    "sub": "Background service",
    "icon": "gear",
-   "x": 450,
-   "y": 645,
-   "w": 300,
+   "x": 624,
+   "y": 565,
+   "w": 230,
    "h": 62
   },
   {
@@ -102,7 +105,7 @@
    "label": "Web Vue.js",
    "sub": "Consulta, preferencias, export.",
    "icon": "web",
-   "x": 700,
+   "x": 640,
    "y": 80,
    "w": 300,
    "h": 90
@@ -113,31 +116,50 @@
    "label": "Autenticación",
    "sub": "Login y token",
    "icon": "shield",
-   "x": 1040,
+   "x": 1000,
    "y": 80,
    "w": 200,
-   "h": 90
-  },
-  {
-   "id": "shared-api",
-   "kind": "static",
-   "label": "shared-api",
-   "sub": "Preferencias y dispositivos",
-   "icon": "server",
-   "x": 760,
-   "y": 385,
-   "w": 220,
    "h": 90
   },
   {
    "id": "toolings-api",
    "kind": "static",
    "label": "toolings-api",
-   "sub": "Exportación de datos",
+   "sub": [
+    "Exportación",
+    "de datos"
+   ],
    "icon": "server",
-   "x": 1000,
+   "x": 870,
    "y": 385,
-   "w": 220,
+   "w": 190,
+   "h": 90
+  },
+  {
+   "id": "shared-api",
+   "kind": "static",
+   "label": "shared-api",
+   "sub": [
+    "Preferencias y",
+    "dispositivos"
+   ],
+   "icon": "server",
+   "x": 1075,
+   "y": 385,
+   "w": 200,
+   "h": 90
+  },
+  {
+   "id": "devices-updater",
+   "kind": "static",
+   "label": "devices-updater",
+   "sub": [
+    "Sistema externo"
+   ],
+   "icon": "device",
+   "x": 1335,
+   "y": 385,
+   "w": 230,
    "h": 90
   },
   {
@@ -147,9 +169,9 @@
    "sub": "BBDD compartida por trx-api, shared-api y toolings-api",
    "icon": "db",
    "loader": "discs",
-   "x": 680,
-   "y": 810,
-   "w": 840,
+   "x": 705,
+   "y": 740,
+   "w": 940,
    "h": 80
   }
  ],
@@ -157,216 +179,222 @@
   "xml": {
    "points": [
     [
-     200,
+     190,
      285
     ],
     [
-     300,
+     251,
      285
     ]
    ],
    "label": {
-    "text": "POST XML",
-    "x": 244,
-    "y": 266,
+    "text": "XML",
+    "x": 221,
+    "y": 268,
     "anchor": "middle"
    }
   },
   "insert": {
    "points": [
     [
-     600,
-     285
+     366,
+     335
     ],
     [
-     620,
-     285
-    ],
-    [
-     620,
-     770
+     366,
+     700
     ]
    ],
    "label": {
     "text": "INSERT",
-    "x": 648,
-    "y": 560,
+    "x": 376,
+    "y": 520,
     "anchor": "start"
    }
   },
   "cacheDb": {
    "points": [
     [
-     300,
-     460
+     509,
+     380
     ],
     [
-     272,
-     460
+     490,
+     380
     ],
     [
-     272,
-     770
+     490,
+     700
     ]
    ]
   },
   "balanceDb": {
    "points": [
     [
-     300,
-     570
+     509,
+     490
     ],
     [
-     288,
-     570
+     500,
+     490
     ],
     [
-     288,
-     770
+     500,
+     700
     ]
    ]
   },
   "fillDb": {
    "points": [
     [
-     450,
-     676
+     624,
+     596
     ],
     [
-     450,
-     770
+     624,
+     700
     ]
    ]
   },
   "webTrx": {
-   "bezier": [
+   "points": [
     [
-     600,
+     624,
      125
     ],
     [
-     600,
-     155
-    ],
-    [
-     450,
-     145
-    ],
-    [
-     450,
-     170
+     624,
+     235
     ]
    ],
    "label": {
     "text": "GET /transactions",
-    "x": 440,
-    "y": 148,
-    "anchor": "end"
-   }
-  },
-  "webShared": {
-   "bezier": [
-    [
-     720,
-     125
-    ],
-    [
-     720,
-     230
-    ],
-    [
-     760,
-     240
-    ],
-    [
-     760,
-     340
-    ]
-   ],
-   "label": {
-    "text": "preferencias",
-    "x": 745,
-    "y": 262,
+    "x": 614,
+    "y": 200,
     "anchor": "end"
    }
   },
   "webTools": {
    "bezier": [
     [
-     800,
+     740,
      125
     ],
     [
-     800,
+     740,
      240
     ],
     [
-     1000,
+     870,
      230
     ],
     [
-     1000,
+     870,
      340
     ]
    ],
    "label": {
     "text": "exportación",
-    "x": 1012,
-    "y": 250,
+    "x": 880,
+    "y": 258,
     "anchor": "start"
+   }
+  },
+  "webShared": {
+   "bezier": [
+    [
+     775,
+     125
+    ],
+    [
+     775,
+     250
+    ],
+    [
+     1075,
+     225
+    ],
+    [
+     1075,
+     340
+    ]
+   ],
+   "label": {
+    "text": "preferencias",
+    "x": 990,
+    "y": 215,
+    "anchor": "end"
    }
   },
   "login": {
    "points": [
     [
-     850,
+     790,
      80
     ],
     [
-     940,
+     900,
      80
     ]
    ],
    "label": {
     "text": "login",
-    "x": 895,
+    "x": 845,
     "y": 64,
     "anchor": "middle"
    }
   },
-  "sharedDb": {
+  "updater": {
    "points": [
     [
-     760,
-     430
+     1220,
+     385
     ],
     [
-     760,
-     770
+     1175,
+     385
     ]
    ],
    "label": {
-    "text": "SQL",
-    "x": 770,
-    "y": 620,
-    "anchor": "start"
+    "text": "REST",
+    "x": 1197,
+    "y": 368,
+    "anchor": "middle"
    }
   },
   "toolsDb": {
    "points": [
     [
-     1000,
+     870,
      430
     ],
     [
-     1000,
-     770
+     870,
+     700
     ]
    ],
    "label": {
     "text": "SQL",
-    "x": 1010,
-    "y": 620,
+    "x": 880,
+    "y": 600,
+    "anchor": "start"
+   }
+  },
+  "sharedDb": {
+   "points": [
+    [
+     1075,
+     430
+    ],
+    [
+     1075,
+     700
+    ]
+   ],
+   "label": {
+    "text": "SQL",
+    "x": 1085,
+    "y": 600,
     "anchor": "start"
    }
   }
