@@ -24,7 +24,7 @@
    "h": 450,
    "caption": {
     "text": "BACKGROUND SERVICES",
-    "x": 509,
+    "x": 251,
     "y": 445
    }
   },
@@ -41,40 +41,26 @@
    "h": 110
   },
   {
-   "id": "trx-post",
+   "id": "trx-endpoint",
    "kind": "service",
-   "label": "POST /transactions",
-   "sub": "Ingesta de XML",
+   "label": "API REST",
+   "sub": "Parseo de trx y consulta de trxs",
    "icon": "server",
    "loader": "bar",
-   "x": 366,
+   "x": 495,
    "y": 285,
-   "w": 230,
-   "h": 100
-  },
-  {
-   "id": "trx-get",
-   "kind": "static",
-   "label": "API REST",
-   "sub": [
-    "Resto de endpoints",
-    "(consulta)"
-   ],
-   "icon": "server",
-   "x": 624,
-   "y": 285,
-   "w": 230,
+   "w": 488,
    "h": 100
   },
   {
    "id": "cache",
    "kind": "static",
    "label": "Caché en memoria",
-   "sub": "Datos en memoria",
+   "sub": "Compartida por la ingesta y la consulta de trxs",
    "icon": "memory",
-   "x": 624,
+   "x": 495,
    "y": 380,
-   "w": 230,
+   "w": 488,
    "h": 62
   },
   {
@@ -83,9 +69,9 @@
    "label": "balance-calculator",
    "sub": "Background service",
    "icon": "gear",
-   "x": 624,
+   "x": 495,
    "y": 490,
-   "w": 230,
+   "w": 488,
    "h": 62
   },
   {
@@ -94,9 +80,9 @@
    "label": "fill-rate-calculator",
    "sub": "Background service",
    "icon": "gear",
-   "x": 624,
+   "x": 495,
    "y": 565,
-   "w": 230,
+   "w": 488,
    "h": 62
   },
   {
@@ -183,95 +169,33 @@
      285
     ],
     [
-     251,
+     235,
      285
     ]
    ],
    "label": {
     "text": "XML",
-    "x": 221,
+    "x": 212,
     "y": 268,
     "anchor": "middle"
    }
   },
-  "insert": {
-   "points": [
-    [
-     366,
-     335
-    ],
-    [
-     366,
-     700
-    ]
-   ],
-   "label": {
-    "text": "INSERT",
-    "x": 376,
-    "y": 520,
-    "anchor": "start"
-   }
-  },
-  "cacheDb": {
-   "points": [
-    [
-     509,
-     380
-    ],
-    [
-     490,
-     380
-    ],
-    [
-     490,
-     700
-    ]
-   ]
-  },
-  "balanceDb": {
-   "points": [
-    [
-     509,
-     490
-    ],
-    [
-     500,
-     490
-    ],
-    [
-     500,
-     700
-    ]
-   ]
-  },
-  "fillDb": {
-   "points": [
-    [
-     624,
-     596
-    ],
-    [
-     624,
-     700
-    ]
-   ]
-  },
   "webTrx": {
    "points": [
     [
-     624,
+     560,
      125
     ],
     [
-     624,
-     235
+     560,
+     170
     ]
    ],
    "label": {
     "text": "GET /transactions",
-    "x": 614,
-    "y": 200,
-    "anchor": "end"
+    "x": 570,
+    "y": 152,
+    "anchor": "start"
    }
   },
   "webTools": {
@@ -397,6 +321,24 @@
     "y": 600,
     "anchor": "start"
    }
+  },
+  "trxDb": {
+   "points": [
+    [
+     495,
+     620
+    ],
+    [
+     495,
+     700
+    ]
+   ],
+   "label": {
+    "text": "INSERT / SELECT",
+    "x": 505,
+    "y": 668,
+    "anchor": "start"
+   }
   }
  },
  "script": [
@@ -420,7 +362,7 @@
   },
   {
    "set": [
-    "trx-post",
+    "trx-endpoint",
     "loading",
     "Validando XML"
    ]
@@ -430,7 +372,7 @@
   },
   {
    "set": [
-    "trx-post",
+    "trx-endpoint",
     "loading",
     "Parseando transacciones"
    ]
@@ -444,7 +386,7 @@
   },
   {
    "fire": {
-    "edge": "insert",
+    "edge": "trxDb",
     "kind": "request",
     "count": 3,
     "dur": 0.9
@@ -462,7 +404,7 @@
   },
   {
    "set": [
-    "trx-post",
+    "trx-endpoint",
     "done",
     "Transacción aceptada"
    ]
