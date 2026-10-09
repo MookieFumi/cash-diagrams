@@ -1,24 +1,27 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JSX vs SVG · evaluación</title>
-<style>body{font:16px/1.5 system-ui,sans-serif;margin:0;background:#f4f6f9;color:#16253B}main{max-width:1080px;margin:0 auto;padding:32px 16px}h1{margin:0 0 4px}h2{margin:32px 0 8px}p.s{color:#5B6B82;margin:0}
-code{background:#e9eef3;padding:1px 5px;border-radius:4px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:16px}.v p{margin:4px 0 0}iframe{width:100%;height:1010px;border:1px solid #4A5F7D;border-radius:12px;background:#fff}table{border-collapse:collapse;width:100%;background:#fff}td,th{border:1px solid #d5dce6;padding:8px 10px;text-align:left;vertical-align:top;font-size:14px}th{background:#e9eef3}</style></head><body><main>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..800&family=Geist+Mono:wght@400..700&display=swap">
+<style>body{font:16px/1.6 "Geist",system-ui,sans-serif;margin:0;background:#05070A;color:#E6EDF3}main{max-width:1080px;margin:0 auto;padding:32px 16px}h1{margin:0 0 4px;letter-spacing:-.03em}h2{margin:32px 0 8px;font:500 16px "Geist Mono",ui-monospace,monospace}h2::before{content:"$ ";color:#B8F25B}p.s{color:#8B96A5;margin:0}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;font:14px "Geist Mono",ui-monospace,monospace}.top a{color:#E6EDF3;text-decoration:none;font-weight:700;font-size:20px;letter-spacing:-.04em}.top a span{color:#B8F25B}.top a.back{font-weight:400;font-size:14px;letter-spacing:0;color:#8B96A5}
+code{font-family:"Geist Mono",ui-monospace,monospace;background:#1C2230;color:#B8F25B;padding:1px 5px;border-radius:4px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:16px}.v p{margin:4px 0 0}iframe{width:100%;height:1010px;border:1px solid #232B3B;border-radius:14px;background:#0B0E14}table{border-collapse:collapse;width:100%;background:#0B0E14}td,th{border:1px solid #232B3B;padding:8px 10px;text-align:left;vertical-align:top;font-size:14px}th{background:#141925;font-family:"Geist Mono",ui-monospace,monospace;font-weight:600}</style></head><body><main>
+<div class="top"><a href="https://mookiefumi.com"><span>~/</span>mookie</a><a class="back" href="../../">← catálogo</a></div>
 <h1>Evaluación: JSX vs SVG puro</h1><p class="s">Mismo diagrama, dos implementaciones. El SVG va incrustado inline en esta misma página (sin JS ni dependencias).</p>
 <h2>A · SVG inline (bucle automático)</h2>
 <p class="s">Por defecto claro, aunque el sistema esté en modo oscuro: <code>data-theme="light"</code>.</p>
 <svg xmlns="http://www.w3.org/2000/svg" class="cd-request-flow" data-theme="light" viewBox="0 0 1000 560" role="img" aria-labelledby="cd-request-flow-t cd-request-flow-d">
 <title id="cd-request-flow-t">El recorrido de una petición hasta el modelo</title><desc id="cd-request-flow-d">El cliente envía una petición al servidor API, que consulta la base de datos para obtener contexto, llama al modelo LLM y devuelve la respuesta al cliente.</desc>
 <style>
-.cd-request-flow{--cd-request-flow-paper:#E9EEF3;--cd-request-flow-card:#FBFCFD;--cd-request-flow-ink:#16253B;--cd-request-flow-line:#4A5F7D;--cd-request-flow-muted:#5B6B82;--cd-request-flow-request:#E58A1F;--cd-request-flow-response:#10857A;--cd-request-flow-error:#B93A2B;font-family:'Bricolage Grotesque','Segoe UI',system-ui,-apple-system,sans-serif;display:block;width:100%;height:auto}
+.cd-request-flow{--cd-request-flow-paper:#F4F6F8;--cd-request-flow-card:#FFFFFF;--cd-request-flow-ink:#0B0E14;--cd-request-flow-line:#556070;--cd-request-flow-muted:#556070;--cd-request-flow-request:#A35F00;--cd-request-flow-response:#3B7A00;--cd-request-flow-error:#C62E40;font-family:'Geist','Segoe UI',system-ui,-apple-system,sans-serif;display:block;width:100%;height:auto}
 /* tema claro por defecto; oscuro solo con data-theme="dark" o data-theme="auto" (sigue al sistema) */
-.cd-request-flow[data-theme="dark"]{--cd-request-flow-paper:#0F1826;--cd-request-flow-card:#172338;--cd-request-flow-ink:#E4ECF7;--cd-request-flow-line:#6C83A6;--cd-request-flow-muted:#9AA9BF;--cd-request-flow-request:#F0A040;--cd-request-flow-response:#2CB5A8;--cd-request-flow-error:#E0675A}
-@media (prefers-color-scheme:dark){.cd-request-flow[data-theme="auto"]{--cd-request-flow-paper:#0F1826;--cd-request-flow-card:#172338;--cd-request-flow-ink:#E4ECF7;--cd-request-flow-line:#6C83A6;--cd-request-flow-muted:#9AA9BF;--cd-request-flow-request:#F0A040;--cd-request-flow-response:#2CB5A8;--cd-request-flow-error:#E0675A}}
+.cd-request-flow[data-theme="dark"]{--cd-request-flow-paper:#0B0E14;--cd-request-flow-card:#141925;--cd-request-flow-ink:#E6EDF3;--cd-request-flow-line:#5C6676;--cd-request-flow-muted:#8B96A5;--cd-request-flow-request:#FFB547;--cd-request-flow-response:#B8F25B;--cd-request-flow-error:#FF6B7A}
+@media (prefers-color-scheme:dark){.cd-request-flow[data-theme="auto"]{--cd-request-flow-paper:#0B0E14;--cd-request-flow-card:#141925;--cd-request-flow-ink:#E6EDF3;--cd-request-flow-line:#5C6676;--cd-request-flow-muted:#8B96A5;--cd-request-flow-request:#FFB547;--cd-request-flow-response:#B8F25B;--cd-request-flow-error:#FF6B7A}}
 .cd-request-flow[data-bg="transparent"] .cd-request-flow-bg{display:none}
 .cd-request-flow-edge{fill:none;stroke:var(--cd-request-flow-line);stroke-width:2;stroke-dasharray:7 7;stroke-linecap:round;opacity:.55}
 .cd-request-flow-edge-on{stroke:var(--cd-request-flow-ink);opacity:0}
 .cd-request-flow-dot{fill:var(--cd-request-flow-ink)}
-.cd-request-flow-elabel{font-size:13px;fill:var(--cd-request-flow-muted)}
+.cd-request-flow-elabel{font-size:13px;fill:var(--cd-request-flow-muted);font-family:'Geist Mono',ui-monospace,Consolas,monospace}
 .cd-request-flow-label{font-size:15px;font-weight:600;fill:var(--cd-request-flow-ink)}
 .cd-request-flow-sub{font-size:12px;fill:var(--cd-request-flow-muted)}
-.cd-request-flow-pill{font-size:11px;font-weight:500}
+.cd-request-flow-pill{font-size:11px;font-weight:500;font-family:'Geist Mono',ui-monospace,Consolas,monospace}
 .cd-request-flow-pop{transform-box:fill-box;transform-origin:center}
 .cd-request-flow-pulse{animation:cd-request-flow-pulse 1.6s ease-out infinite}
 .cd-request-flow-spin{transform-box:fill-box;transform-origin:center;animation:cd-request-flow-spin .9s linear infinite}
@@ -77,18 +80,18 @@ code{background:#e9eef3;padding:1px 5px;border-radius:4px}.grid{display:grid;gri
 <div class="grid"><div class="v" style="background:transparent"><svg xmlns="http://www.w3.org/2000/svg" class="cd-request-flow-dark" data-theme="dark" viewBox="0 0 1000 560" role="img" aria-labelledby="cd-request-flow-dark-t cd-request-flow-dark-d">
 <title id="cd-request-flow-dark-t">El recorrido de una petición hasta el modelo</title><desc id="cd-request-flow-dark-d">El cliente envía una petición al servidor API, que consulta la base de datos para obtener contexto, llama al modelo LLM y devuelve la respuesta al cliente.</desc>
 <style>
-.cd-request-flow-dark{--cd-request-flow-dark-paper:#E9EEF3;--cd-request-flow-dark-card:#FBFCFD;--cd-request-flow-dark-ink:#16253B;--cd-request-flow-dark-line:#4A5F7D;--cd-request-flow-dark-muted:#5B6B82;--cd-request-flow-dark-request:#E58A1F;--cd-request-flow-dark-response:#10857A;--cd-request-flow-dark-error:#B93A2B;font-family:'Bricolage Grotesque','Segoe UI',system-ui,-apple-system,sans-serif;display:block;width:100%;height:auto}
+.cd-request-flow-dark{--cd-request-flow-dark-paper:#F4F6F8;--cd-request-flow-dark-card:#FFFFFF;--cd-request-flow-dark-ink:#0B0E14;--cd-request-flow-dark-line:#556070;--cd-request-flow-dark-muted:#556070;--cd-request-flow-dark-request:#A35F00;--cd-request-flow-dark-response:#3B7A00;--cd-request-flow-dark-error:#C62E40;font-family:'Geist','Segoe UI',system-ui,-apple-system,sans-serif;display:block;width:100%;height:auto}
 /* tema claro por defecto; oscuro solo con data-theme="dark" o data-theme="auto" (sigue al sistema) */
-.cd-request-flow-dark[data-theme="dark"]{--cd-request-flow-dark-paper:#0F1826;--cd-request-flow-dark-card:#172338;--cd-request-flow-dark-ink:#E4ECF7;--cd-request-flow-dark-line:#6C83A6;--cd-request-flow-dark-muted:#9AA9BF;--cd-request-flow-dark-request:#F0A040;--cd-request-flow-dark-response:#2CB5A8;--cd-request-flow-dark-error:#E0675A}
-@media (prefers-color-scheme:dark){.cd-request-flow-dark[data-theme="auto"]{--cd-request-flow-dark-paper:#0F1826;--cd-request-flow-dark-card:#172338;--cd-request-flow-dark-ink:#E4ECF7;--cd-request-flow-dark-line:#6C83A6;--cd-request-flow-dark-muted:#9AA9BF;--cd-request-flow-dark-request:#F0A040;--cd-request-flow-dark-response:#2CB5A8;--cd-request-flow-dark-error:#E0675A}}
+.cd-request-flow-dark[data-theme="dark"]{--cd-request-flow-dark-paper:#0B0E14;--cd-request-flow-dark-card:#141925;--cd-request-flow-dark-ink:#E6EDF3;--cd-request-flow-dark-line:#5C6676;--cd-request-flow-dark-muted:#8B96A5;--cd-request-flow-dark-request:#FFB547;--cd-request-flow-dark-response:#B8F25B;--cd-request-flow-dark-error:#FF6B7A}
+@media (prefers-color-scheme:dark){.cd-request-flow-dark[data-theme="auto"]{--cd-request-flow-dark-paper:#0B0E14;--cd-request-flow-dark-card:#141925;--cd-request-flow-dark-ink:#E6EDF3;--cd-request-flow-dark-line:#5C6676;--cd-request-flow-dark-muted:#8B96A5;--cd-request-flow-dark-request:#FFB547;--cd-request-flow-dark-response:#B8F25B;--cd-request-flow-dark-error:#FF6B7A}}
 .cd-request-flow-dark[data-bg="transparent"] .cd-request-flow-dark-bg{display:none}
 .cd-request-flow-dark-edge{fill:none;stroke:var(--cd-request-flow-dark-line);stroke-width:2;stroke-dasharray:7 7;stroke-linecap:round;opacity:.55}
 .cd-request-flow-dark-edge-on{stroke:var(--cd-request-flow-dark-ink);opacity:0}
 .cd-request-flow-dark-dot{fill:var(--cd-request-flow-dark-ink)}
-.cd-request-flow-dark-elabel{font-size:13px;fill:var(--cd-request-flow-dark-muted)}
+.cd-request-flow-dark-elabel{font-size:13px;fill:var(--cd-request-flow-dark-muted);font-family:'Geist Mono',ui-monospace,Consolas,monospace}
 .cd-request-flow-dark-label{font-size:15px;font-weight:600;fill:var(--cd-request-flow-dark-ink)}
 .cd-request-flow-dark-sub{font-size:12px;fill:var(--cd-request-flow-dark-muted)}
-.cd-request-flow-dark-pill{font-size:11px;font-weight:500}
+.cd-request-flow-dark-pill{font-size:11px;font-weight:500;font-family:'Geist Mono',ui-monospace,Consolas,monospace}
 .cd-request-flow-dark-pop{transform-box:fill-box;transform-origin:center}
 .cd-request-flow-dark-pulse{animation:cd-request-flow-dark-pulse 1.6s ease-out infinite}
 .cd-request-flow-dark-spin{transform-box:fill-box;transform-origin:center;animation:cd-request-flow-dark-spin .9s linear infinite}
@@ -144,18 +147,18 @@ code{background:#e9eef3;padding:1px 5px;border-radius:4px}.grid{display:grid;gri
 </svg><p class="s">theme=dark</p></div><div class="v" style="background:transparent"><svg xmlns="http://www.w3.org/2000/svg" class="cd-request-flow-auto" data-theme="auto" viewBox="0 0 1000 560" role="img" aria-labelledby="cd-request-flow-auto-t cd-request-flow-auto-d">
 <title id="cd-request-flow-auto-t">El recorrido de una petición hasta el modelo</title><desc id="cd-request-flow-auto-d">El cliente envía una petición al servidor API, que consulta la base de datos para obtener contexto, llama al modelo LLM y devuelve la respuesta al cliente.</desc>
 <style>
-.cd-request-flow-auto{--cd-request-flow-auto-paper:#E9EEF3;--cd-request-flow-auto-card:#FBFCFD;--cd-request-flow-auto-ink:#16253B;--cd-request-flow-auto-line:#4A5F7D;--cd-request-flow-auto-muted:#5B6B82;--cd-request-flow-auto-request:#E58A1F;--cd-request-flow-auto-response:#10857A;--cd-request-flow-auto-error:#B93A2B;font-family:'Bricolage Grotesque','Segoe UI',system-ui,-apple-system,sans-serif;display:block;width:100%;height:auto}
+.cd-request-flow-auto{--cd-request-flow-auto-paper:#F4F6F8;--cd-request-flow-auto-card:#FFFFFF;--cd-request-flow-auto-ink:#0B0E14;--cd-request-flow-auto-line:#556070;--cd-request-flow-auto-muted:#556070;--cd-request-flow-auto-request:#A35F00;--cd-request-flow-auto-response:#3B7A00;--cd-request-flow-auto-error:#C62E40;font-family:'Geist','Segoe UI',system-ui,-apple-system,sans-serif;display:block;width:100%;height:auto}
 /* tema claro por defecto; oscuro solo con data-theme="dark" o data-theme="auto" (sigue al sistema) */
-.cd-request-flow-auto[data-theme="dark"]{--cd-request-flow-auto-paper:#0F1826;--cd-request-flow-auto-card:#172338;--cd-request-flow-auto-ink:#E4ECF7;--cd-request-flow-auto-line:#6C83A6;--cd-request-flow-auto-muted:#9AA9BF;--cd-request-flow-auto-request:#F0A040;--cd-request-flow-auto-response:#2CB5A8;--cd-request-flow-auto-error:#E0675A}
-@media (prefers-color-scheme:dark){.cd-request-flow-auto[data-theme="auto"]{--cd-request-flow-auto-paper:#0F1826;--cd-request-flow-auto-card:#172338;--cd-request-flow-auto-ink:#E4ECF7;--cd-request-flow-auto-line:#6C83A6;--cd-request-flow-auto-muted:#9AA9BF;--cd-request-flow-auto-request:#F0A040;--cd-request-flow-auto-response:#2CB5A8;--cd-request-flow-auto-error:#E0675A}}
+.cd-request-flow-auto[data-theme="dark"]{--cd-request-flow-auto-paper:#0B0E14;--cd-request-flow-auto-card:#141925;--cd-request-flow-auto-ink:#E6EDF3;--cd-request-flow-auto-line:#5C6676;--cd-request-flow-auto-muted:#8B96A5;--cd-request-flow-auto-request:#FFB547;--cd-request-flow-auto-response:#B8F25B;--cd-request-flow-auto-error:#FF6B7A}
+@media (prefers-color-scheme:dark){.cd-request-flow-auto[data-theme="auto"]{--cd-request-flow-auto-paper:#0B0E14;--cd-request-flow-auto-card:#141925;--cd-request-flow-auto-ink:#E6EDF3;--cd-request-flow-auto-line:#5C6676;--cd-request-flow-auto-muted:#8B96A5;--cd-request-flow-auto-request:#FFB547;--cd-request-flow-auto-response:#B8F25B;--cd-request-flow-auto-error:#FF6B7A}}
 .cd-request-flow-auto[data-bg="transparent"] .cd-request-flow-auto-bg{display:none}
 .cd-request-flow-auto-edge{fill:none;stroke:var(--cd-request-flow-auto-line);stroke-width:2;stroke-dasharray:7 7;stroke-linecap:round;opacity:.55}
 .cd-request-flow-auto-edge-on{stroke:var(--cd-request-flow-auto-ink);opacity:0}
 .cd-request-flow-auto-dot{fill:var(--cd-request-flow-auto-ink)}
-.cd-request-flow-auto-elabel{font-size:13px;fill:var(--cd-request-flow-auto-muted)}
+.cd-request-flow-auto-elabel{font-size:13px;fill:var(--cd-request-flow-auto-muted);font-family:'Geist Mono',ui-monospace,Consolas,monospace}
 .cd-request-flow-auto-label{font-size:15px;font-weight:600;fill:var(--cd-request-flow-auto-ink)}
 .cd-request-flow-auto-sub{font-size:12px;fill:var(--cd-request-flow-auto-muted)}
-.cd-request-flow-auto-pill{font-size:11px;font-weight:500}
+.cd-request-flow-auto-pill{font-size:11px;font-weight:500;font-family:'Geist Mono',ui-monospace,Consolas,monospace}
 .cd-request-flow-auto-pop{transform-box:fill-box;transform-origin:center}
 .cd-request-flow-auto-pulse{animation:cd-request-flow-auto-pulse 1.6s ease-out infinite}
 .cd-request-flow-auto-spin{transform-box:fill-box;transform-origin:center;animation:cd-request-flow-auto-spin .9s linear infinite}
@@ -211,18 +214,18 @@ code{background:#e9eef3;padding:1px 5px;border-radius:4px}.grid{display:grid;gri
 </svg><p class="s">theme=auto</p></div><div class="v" style="background:repeating-linear-gradient(45deg,#fff8e6,#fff8e6 12px,#fff 12px,#fff 24px)"><svg xmlns="http://www.w3.org/2000/svg" class="cd-request-flow-light-transparent" data-theme="light" data-bg="transparent" viewBox="0 0 1000 560" role="img" aria-labelledby="cd-request-flow-light-transparent-t cd-request-flow-light-transparent-d">
 <title id="cd-request-flow-light-transparent-t">El recorrido de una petición hasta el modelo</title><desc id="cd-request-flow-light-transparent-d">El cliente envía una petición al servidor API, que consulta la base de datos para obtener contexto, llama al modelo LLM y devuelve la respuesta al cliente.</desc>
 <style>
-.cd-request-flow-light-transparent{--cd-request-flow-light-transparent-paper:#E9EEF3;--cd-request-flow-light-transparent-card:#FBFCFD;--cd-request-flow-light-transparent-ink:#16253B;--cd-request-flow-light-transparent-line:#4A5F7D;--cd-request-flow-light-transparent-muted:#5B6B82;--cd-request-flow-light-transparent-request:#E58A1F;--cd-request-flow-light-transparent-response:#10857A;--cd-request-flow-light-transparent-error:#B93A2B;font-family:'Bricolage Grotesque','Segoe UI',system-ui,-apple-system,sans-serif;display:block;width:100%;height:auto}
+.cd-request-flow-light-transparent{--cd-request-flow-light-transparent-paper:#F4F6F8;--cd-request-flow-light-transparent-card:#FFFFFF;--cd-request-flow-light-transparent-ink:#0B0E14;--cd-request-flow-light-transparent-line:#556070;--cd-request-flow-light-transparent-muted:#556070;--cd-request-flow-light-transparent-request:#A35F00;--cd-request-flow-light-transparent-response:#3B7A00;--cd-request-flow-light-transparent-error:#C62E40;font-family:'Geist','Segoe UI',system-ui,-apple-system,sans-serif;display:block;width:100%;height:auto}
 /* tema claro por defecto; oscuro solo con data-theme="dark" o data-theme="auto" (sigue al sistema) */
-.cd-request-flow-light-transparent[data-theme="dark"]{--cd-request-flow-light-transparent-paper:#0F1826;--cd-request-flow-light-transparent-card:#172338;--cd-request-flow-light-transparent-ink:#E4ECF7;--cd-request-flow-light-transparent-line:#6C83A6;--cd-request-flow-light-transparent-muted:#9AA9BF;--cd-request-flow-light-transparent-request:#F0A040;--cd-request-flow-light-transparent-response:#2CB5A8;--cd-request-flow-light-transparent-error:#E0675A}
-@media (prefers-color-scheme:dark){.cd-request-flow-light-transparent[data-theme="auto"]{--cd-request-flow-light-transparent-paper:#0F1826;--cd-request-flow-light-transparent-card:#172338;--cd-request-flow-light-transparent-ink:#E4ECF7;--cd-request-flow-light-transparent-line:#6C83A6;--cd-request-flow-light-transparent-muted:#9AA9BF;--cd-request-flow-light-transparent-request:#F0A040;--cd-request-flow-light-transparent-response:#2CB5A8;--cd-request-flow-light-transparent-error:#E0675A}}
+.cd-request-flow-light-transparent[data-theme="dark"]{--cd-request-flow-light-transparent-paper:#0B0E14;--cd-request-flow-light-transparent-card:#141925;--cd-request-flow-light-transparent-ink:#E6EDF3;--cd-request-flow-light-transparent-line:#5C6676;--cd-request-flow-light-transparent-muted:#8B96A5;--cd-request-flow-light-transparent-request:#FFB547;--cd-request-flow-light-transparent-response:#B8F25B;--cd-request-flow-light-transparent-error:#FF6B7A}
+@media (prefers-color-scheme:dark){.cd-request-flow-light-transparent[data-theme="auto"]{--cd-request-flow-light-transparent-paper:#0B0E14;--cd-request-flow-light-transparent-card:#141925;--cd-request-flow-light-transparent-ink:#E6EDF3;--cd-request-flow-light-transparent-line:#5C6676;--cd-request-flow-light-transparent-muted:#8B96A5;--cd-request-flow-light-transparent-request:#FFB547;--cd-request-flow-light-transparent-response:#B8F25B;--cd-request-flow-light-transparent-error:#FF6B7A}}
 .cd-request-flow-light-transparent[data-bg="transparent"] .cd-request-flow-light-transparent-bg{display:none}
 .cd-request-flow-light-transparent-edge{fill:none;stroke:var(--cd-request-flow-light-transparent-line);stroke-width:2;stroke-dasharray:7 7;stroke-linecap:round;opacity:.55}
 .cd-request-flow-light-transparent-edge-on{stroke:var(--cd-request-flow-light-transparent-ink);opacity:0}
 .cd-request-flow-light-transparent-dot{fill:var(--cd-request-flow-light-transparent-ink)}
-.cd-request-flow-light-transparent-elabel{font-size:13px;fill:var(--cd-request-flow-light-transparent-muted)}
+.cd-request-flow-light-transparent-elabel{font-size:13px;fill:var(--cd-request-flow-light-transparent-muted);font-family:'Geist Mono',ui-monospace,Consolas,monospace}
 .cd-request-flow-light-transparent-label{font-size:15px;font-weight:600;fill:var(--cd-request-flow-light-transparent-ink)}
 .cd-request-flow-light-transparent-sub{font-size:12px;fill:var(--cd-request-flow-light-transparent-muted)}
-.cd-request-flow-light-transparent-pill{font-size:11px;font-weight:500}
+.cd-request-flow-light-transparent-pill{font-size:11px;font-weight:500;font-family:'Geist Mono',ui-monospace,Consolas,monospace}
 .cd-request-flow-light-transparent-pop{transform-box:fill-box;transform-origin:center}
 .cd-request-flow-light-transparent-pulse{animation:cd-request-flow-light-transparent-pulse 1.6s ease-out infinite}
 .cd-request-flow-light-transparent-spin{transform-box:fill-box;transform-origin:center;animation:cd-request-flow-light-transparent-spin .9s linear infinite}

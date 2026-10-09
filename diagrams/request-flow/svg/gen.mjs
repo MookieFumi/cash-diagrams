@@ -11,8 +11,9 @@ const P = `cd-${slug}`; // prefix for every class / id / keyframe => safe to inl
 /* ------------------------------ spec ------------------------------------ */
 const W = 1000, H = 560, NW = 200, NH = 128, STAGGER = 0.14, F = 0.2, SAMPLES = 14;
 const COL = { // light / dark tokens
-  light: { paper: "#E9EEF3", card: "#FBFCFD", ink: "#16253B", line: "#4A5F7D", muted: "#5B6B82", request: "#E58A1F", response: "#10857A", error: "#B93A2B" },
-  dark: { paper: "#0F1826", card: "#172338", ink: "#E4ECF7", line: "#6C83A6", muted: "#9AA9BF", request: "#F0A040", response: "#2CB5A8", error: "#E0675A" },
+  // Paleta de la marca ~/mookie (mookiefumi.com), la misma que src/svg/gen.mjs.
+  light: { paper: "#F4F6F8", card: "#FFFFFF", ink: "#0B0E14", line: "#556070", muted: "#556070", request: "#A35F00", response: "#3B7A00", error: "#C62E40" },
+  dark: { paper: "#0B0E14", card: "#141925", ink: "#E6EDF3", line: "#5C6676", muted: "#8B96A5", request: "#FFB547", response: "#B8F25B", error: "#FF6B7A" },
 };
 const NODES = {
   client: { label: "Cliente", sub: "App web o móvil", x: 130, y: 280, loader: "spinner", icon: "client" },
@@ -228,7 +229,7 @@ ${layers}${texts}
 /* ------------------------------- css ------------------------------------ */
 const vars = (c) => Object.entries(c).map(([k, v]) => `--${P}-${k}:${v}`).join(";");
 const base = `
-.${P}{${vars(COL.light)};font-family:'Bricolage Grotesque','Segoe UI',system-ui,-apple-system,sans-serif;display:block;width:100%;height:auto}
+.${P}{${vars(COL.light)};font-family:'Geist','Segoe UI',system-ui,-apple-system,sans-serif;display:block;width:100%;height:auto}
 /* tema claro por defecto; oscuro solo con data-theme="dark" o data-theme="auto" (sigue al sistema) */
 .${P}[data-theme="dark"]{${vars(COL.dark)}}
 @media (prefers-color-scheme:dark){.${P}[data-theme="auto"]{${vars(COL.dark)}}}
@@ -236,10 +237,10 @@ const base = `
 .${P}-edge{fill:none;stroke:var(--${P}-line);stroke-width:2;stroke-dasharray:7 7;stroke-linecap:round;opacity:.55}
 .${P}-edge-on{stroke:var(--${P}-ink);opacity:0}
 .${P}-dot{fill:var(--${P}-ink)}
-.${P}-elabel{font-size:13px;fill:var(--${P}-muted)}
+.${P}-elabel{font-size:13px;fill:var(--${P}-muted);font-family:'Geist Mono',ui-monospace,Consolas,monospace}
 .${P}-label{font-size:15px;font-weight:600;fill:var(--${P}-ink)}
 .${P}-sub{font-size:12px;fill:var(--${P}-muted)}
-.${P}-pill{font-size:11px;font-weight:500}
+.${P}-pill{font-size:11px;font-weight:500;font-family:'Geist Mono',ui-monospace,Consolas,monospace}
 .${P}-pop{transform-box:fill-box;transform-origin:center}
 .${P}-pulse{animation:${P}-pulse 1.6s ease-out infinite}
 .${P}-spin{transform-box:fill-box;transform-origin:center;animation:${P}-spin .9s linear infinite}
