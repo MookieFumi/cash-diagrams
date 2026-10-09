@@ -3,15 +3,16 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 /* Generic player: renders any diagram described by a spec.json (same spec the SVG generator uses). */
 
+// Paleta de la marca ~/mookie (mookiefumi.com), la misma que el SVG en modo oscuro.
 const C = {
-  paper: "#E9EEF3",
-  card: "#FBFCFD",
-  ink: "#16253B",
-  line: "#4A5F7D",
-  muted: "#5B6B82",
-  request: "#E58A1F",
-  response: "#10857A",
-  error: "#B93A2B",
+  paper: "#0B0E14",
+  card: "#141925",
+  ink: "#E6EDF3",
+  line: "#5C6676",
+  muted: "#8B96A5",
+  request: "#FFB547",
+  response: "#B8F25B",
+  error: "#FF6B7A",
 };
 const PAPER_STYLE = {
   backgroundColor: C.paper,
@@ -298,7 +299,7 @@ function Player({ spec }) {
   const others = spec.nodes.filter((n) => n.kind !== "group");
 
   return (
-    <div className="min-h-screen w-full px-4 py-8 sm:px-8" style={{ background: C.paper, color: C.ink, fontFamily: "'Segoe UI', system-ui, -apple-system, sans-serif" }}>
+    <div className="min-h-screen w-full px-4 py-8 sm:px-8" style={{ background: C.paper, color: C.ink, fontFamily: "'Geist', 'Segoe UI', system-ui, -apple-system, sans-serif" }}>
       <div className="mx-auto max-w-6xl">
         <header className="mb-5">
           <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{spec.title}</h1>
@@ -306,12 +307,12 @@ function Player({ spec }) {
         </header>
 
         <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-3">
-          <motion.button type="button" onClick={play} disabled={running} whileTap={{ scale: 0.97 }} className="rounded-lg px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60" style={{ background: C.ink }}>
-            {running ? "Reproduciendo…" : "Reproducir"}
+          <motion.button type="button" onClick={play} disabled={running} whileTap={{ scale: 0.97 }} className="rounded-lg px-5 py-2.5 font-mono text-sm font-semibold disabled:opacity-60" style={{ background: C.response, color: C.paper }}>
+            {running ? "$ ./reproducir.sh …" : "$ ./reproducir.sh"}
           </motion.button>
           <button type="button" onClick={stop} className="rounded-lg border px-4 py-2.5 text-sm font-medium" style={{ borderColor: C.line }}>Reiniciar</button>
           <label className="flex items-center gap-2 text-sm">
-            <input type="checkbox" className="h-4 w-4" style={{ accentColor: C.ink }} checked={loop} onChange={(e) => setLoop(e.target.checked)} />
+            <input type="checkbox" className="h-4 w-4" style={{ accentColor: C.response }} checked={loop} onChange={(e) => setLoop(e.target.checked)} />
             Repetir en bucle
           </label>
           <div className="ml-auto flex items-center gap-4 text-sm" style={{ color: C.muted }}>

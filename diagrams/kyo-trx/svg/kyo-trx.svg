@@ -1,20 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="cd-kyo-trx" data-theme="light" viewBox="0 0 1600 820" role="img" aria-labelledby="cd-kyo-trx-t cd-kyo-trx-d">
 <title id="cd-kyo-trx-t">kyo-trx</title><desc id="cd-kyo-trx-d">cash-device envía transacciones XML por POST a trx-api, que las guarda en SQL Server. La web Vue consulta trx-api, shared-api y toolings-api, con autenticación; devices-updater, un sistema externo, actualiza dispositivos vía shared-api. Las tres APIs incluyen caché en memoria y background services (toolings-api: file-generator).</desc>
 <style>
-.cd-kyo-trx{--cd-kyo-trx-paper:#E9EEF3;--cd-kyo-trx-card:#FBFCFD;--cd-kyo-trx-ink:#16253B;--cd-kyo-trx-line:#4A5F7D;--cd-kyo-trx-muted:#5B6B82;--cd-kyo-trx-request:#E58A1F;--cd-kyo-trx-response:#10857A;--cd-kyo-trx-error:#B93A2B;font-family:'Bricolage Grotesque','Segoe UI',system-ui,-apple-system,sans-serif;display:block;width:100%;height:auto}
+.cd-kyo-trx{--cd-kyo-trx-paper:#F4F6F8;--cd-kyo-trx-card:#FFFFFF;--cd-kyo-trx-ink:#0B0E14;--cd-kyo-trx-line:#556070;--cd-kyo-trx-muted:#556070;--cd-kyo-trx-request:#A35F00;--cd-kyo-trx-response:#3B7A00;--cd-kyo-trx-error:#C62E40;font-family:'Geist','Segoe UI',system-ui,-apple-system,sans-serif;display:block;width:100%;height:auto}
 /* tema claro por defecto; oscuro solo con data-theme="dark" o data-theme="auto" (sigue al sistema) */
-.cd-kyo-trx[data-theme="dark"]{--cd-kyo-trx-paper:#0F1826;--cd-kyo-trx-card:#172338;--cd-kyo-trx-ink:#E4ECF7;--cd-kyo-trx-line:#6C83A6;--cd-kyo-trx-muted:#9AA9BF;--cd-kyo-trx-request:#F0A040;--cd-kyo-trx-response:#2CB5A8;--cd-kyo-trx-error:#E0675A}
-@media (prefers-color-scheme:dark){.cd-kyo-trx[data-theme="auto"]{--cd-kyo-trx-paper:#0F1826;--cd-kyo-trx-card:#172338;--cd-kyo-trx-ink:#E4ECF7;--cd-kyo-trx-line:#6C83A6;--cd-kyo-trx-muted:#9AA9BF;--cd-kyo-trx-request:#F0A040;--cd-kyo-trx-response:#2CB5A8;--cd-kyo-trx-error:#E0675A}}
+.cd-kyo-trx[data-theme="dark"]{--cd-kyo-trx-paper:#0B0E14;--cd-kyo-trx-card:#141925;--cd-kyo-trx-ink:#E6EDF3;--cd-kyo-trx-line:#5C6676;--cd-kyo-trx-muted:#8B96A5;--cd-kyo-trx-request:#FFB547;--cd-kyo-trx-response:#B8F25B;--cd-kyo-trx-error:#FF6B7A}
+@media (prefers-color-scheme:dark){.cd-kyo-trx[data-theme="auto"]{--cd-kyo-trx-paper:#0B0E14;--cd-kyo-trx-card:#141925;--cd-kyo-trx-ink:#E6EDF3;--cd-kyo-trx-line:#5C6676;--cd-kyo-trx-muted:#8B96A5;--cd-kyo-trx-request:#FFB547;--cd-kyo-trx-response:#B8F25B;--cd-kyo-trx-error:#FF6B7A}}
 .cd-kyo-trx[data-bg="transparent"] .cd-kyo-trx-bg{display:none}
 .cd-kyo-trx-edge{fill:none;stroke:var(--cd-kyo-trx-line);stroke-width:2;stroke-dasharray:7 7;stroke-linecap:round;stroke-linejoin:round;opacity:.55}
 .cd-kyo-trx-edge-on{stroke:var(--cd-kyo-trx-ink);opacity:0}
 .cd-kyo-trx-dot{fill:var(--cd-kyo-trx-ink)}
-.cd-kyo-trx-elabel{font-size:13px;fill:var(--cd-kyo-trx-muted)}
+.cd-kyo-trx-elabel{font-size:13px;fill:var(--cd-kyo-trx-muted);font-family:'Geist Mono',ui-monospace,Consolas,monospace}
 .cd-kyo-trx-label{font-size:15px;font-weight:600;fill:var(--cd-kyo-trx-ink)}
 .cd-kyo-trx-dim{fill:var(--cd-kyo-trx-muted)}
 .cd-kyo-trx-sub{font-size:12px;fill:var(--cd-kyo-trx-muted)}
-.cd-kyo-trx-caption{font-size:11px;font-weight:600;letter-spacing:.08em;fill:var(--cd-kyo-trx-muted)}
-.cd-kyo-trx-pill{font-size:11px;font-weight:500}
+.cd-kyo-trx-caption{font-size:11px;font-weight:600;letter-spacing:.08em;fill:var(--cd-kyo-trx-muted);font-family:'Geist Mono',ui-monospace,Consolas,monospace}
+.cd-kyo-trx-pill{font-size:11px;font-weight:500;font-family:'Geist Mono',ui-monospace,Consolas,monospace}
 .cd-kyo-trx-pop{transform-box:fill-box;transform-origin:center}
 .cd-kyo-trx-pulse{animation:cd-kyo-trx-pulse 1.6s ease-out infinite}
 .cd-kyo-trx-spin{transform-box:fill-box;transform-origin:center;animation:cd-kyo-trx-spin .9s linear infinite}

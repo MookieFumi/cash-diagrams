@@ -5,20 +5,21 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 /*  Tokens                                                                    */
 /* -------------------------------------------------------------------------- */
 
+// Paleta de la marca ~/mookie (mookiefumi.com), la misma que el SVG en modo oscuro.
 const C = {
-  paper: "#E9EEF3",
-  card: "#FBFCFD",
-  ink: "#16253B",
-  line: "#4A5F7D",
-  muted: "#5B6B82",
-  request: "#E58A1F",
-  response: "#10857A",
-  error: "#B93A2B",
+  paper: "#0B0E14",
+  card: "#141925",
+  ink: "#E6EDF3",
+  line: "#5C6676",
+  muted: "#8B96A5",
+  request: "#FFB547",
+  response: "#B8F25B",
+  error: "#FF6B7A",
 };
 
 // Optional: remove the @import and the fontFamily below to use your own font.
 const FONT_IMPORT =
-  "@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&display=swap');";
+  "@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400..800&family=Geist+Mono:wght@400..700&display=swap');";
 
 const PAPER_STYLE = {
   backgroundColor: C.paper,
@@ -628,7 +629,7 @@ export default function ArchitectureFlow() {
       style={{
         background: C.paper,
         color: C.ink,
-        fontFamily: "'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif",
+        fontFamily: "'Geist', 'Segoe UI', system-ui, sans-serif",
       }}
     >
       <style>{FONT_IMPORT}</style>
@@ -639,7 +640,7 @@ export default function ArchitectureFlow() {
             El recorrido de una petición hasta el modelo
           </h1>
           <p className="mt-2 max-w-xl text-[15px] leading-relaxed" style={{ color: C.muted }}>
-            Pulsa Enviar petición para ver cómo viajan los datos entre los cuatro
+            Pulsa <code className="font-mono">$ ./enviar.sh</code> para ver cómo viajan los datos entre los cuatro
             componentes. También puedes hacer clic en cualquier nodo para ver su
             estado de carga.
           </p>
@@ -651,14 +652,16 @@ export default function ArchitectureFlow() {
             onClick={send}
             disabled={running}
             whileTap={{ scale: 0.97 }}
-            className="rounded-lg px-5 py-2.5 text-sm font-semibold text-white outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-60"
+            className="rounded-lg px-5 py-2.5 text-sm font-semibold outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-60"
             style={{
-              background: C.ink,
+              background: C.response,
+              color: C.paper,
+              fontFamily: "'Geist Mono', ui-monospace, monospace",
               "--tw-ring-color": C.request,
               "--tw-ring-offset-color": C.paper,
             }}
           >
-            {running ? "Enviando…" : "Enviar petición"}
+            {running ? "$ ./enviar.sh …" : "$ ./enviar.sh"}
           </motion.button>
 
           <button
@@ -678,7 +681,7 @@ export default function ArchitectureFlow() {
             <input
               type="checkbox"
               className="h-4 w-4"
-              style={{ accentColor: C.ink }}
+              style={{ accentColor: C.response }}
               checked={failLlm}
               disabled={running}
               onChange={(e) => setFailLlm(e.target.checked)}
@@ -792,7 +795,7 @@ export default function ArchitectureFlow() {
           >
             {log.length === 0 ? (
               <p className="text-sm" style={{ color: C.muted }}>
-                Aún no hay actividad. Pulsa Enviar petición para empezar.
+                Aún no hay actividad. Pulsa <code className="font-mono">$ ./enviar.sh</code> para empezar.
               </p>
             ) : (
               <ol className="space-y-1.5">
