@@ -81,6 +81,14 @@ const allTags = [...new Set(cards.flatMap((c) => c.meta.tags))];
 const chips = allTags.map((t) => `<button type="button" class="chip" data-tag="${esc(t.toLowerCase())}">${esc(t)}</button>`).join("");
 
 const tpl = read(join(root, "site/index.template.html"));
-writeFileSync(join(out, "index.html"), tpl.replace("<!--CARDS-->", cardHtml).replace("<!--CHIPS-->", chips).replace("<!--COUNT-->", String(cards.length)));
+// Cloudflare Web Analytics only on the index page: SVGs and snippets stay self-contained, JS-free.
+const { cloudflareWebAnalyticsToken: cfToken } = JSON.parse(readFileSync(join(root, "analytics.config.json"), "utf8"));
+const beacon = cfToken
+  ? `<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "${cfToken}"}'></script><!-- End Cloudflare Web Analytics -->\n`
+  : "";
+let indexHtml = tpl.replace("<!--CARDS-->", cardHtml).replace("<!--CHIPS-->", chips).replace("<!--COUNT-->", String(cards.length));
+if (!indexHtml.includes("</body>")) throw new Error("index template has no </body>");
+indexHtml = indexHtml.replace("</body>", `${beacon}</body>`);
+writeFileSync(join(out, "index.html"), indexHtml);
 writeFileSync(join(out, ".nojekyll"), "");
 console.log(`site built: ${cards.length} diagrams -> ${out}`);
